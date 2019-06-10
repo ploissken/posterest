@@ -64,4 +64,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(HeaderMenu);
+export default connect(mapStateToProps)(HeaderMenu)
