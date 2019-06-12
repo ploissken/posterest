@@ -10,11 +10,11 @@ const settingsReducer = (state = initialSettings, action) => {
         ...state,
         darkmode: !state.darkmode
       }
-      case 'CHANGE_VIEW_MODE':
-        return {
-          ...state,
-          listview: !state.listview
-        }
+    case 'CHANGE_VIEW_MODE':
+      return {
+        ...state,
+        listview: !state.listview
+      }
     default:
       return state;
   }

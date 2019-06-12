@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Icon, Image, Segment, TransitionablePortal } from 'semantic-ui-react'
+import { Card, Icon, Image, Segment, Button, TransitionablePortal } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 
 function getSource(url) {
@@ -30,55 +30,56 @@ const iteractions = {
   'display': 'block'
 }
 
+const nomargin = {
+  'marginBottom': '0'
+}
+
+const invSegment = {
+  'marginBottom': '0',
+  'backgroundColor': '#333'
+}
+
 class NewsCard extends React.Component {
   render() {
     if(this.props.settings.listview) {
       return (
-        <Segment.Group horizontal>
-          <Segment.Group horizontal>
-            <Segment>
-              <TransitionablePortal
-                closeOnTriggerClick
-                onOpen={this.handleOpen}
-                onClose={this.handleClose}
-                openOnTriggerClick
-                trigger={
-                  <Image src={this.props.data.img} size='tiny' ui={true} />
-                }
-              >
-                <Segment style={{ right: '10%', position: 'fixed', top: '10%', zIndex: 1000 }}>
-                  <Image src={this.props.data.img} size="large" ui={true} />
-                </Segment>
-              </TransitionablePortal>
-            </Segment>
-            <Segment>
-              <div>
-                <Segment vertical>
-                  <span className='date'>
-                    @<a href={this.props.data.href}>
-                      {getSource(this.props.data.href)}
-                    </a>
-                  </span>
-                </Segment>
-                <Segment vertical>
-                  <span style={iteractions}>
-                    {dateParse(this.props.data.time) || 'no data info'}
-                  </span>
-                </Segment>
-              </div>
-            </Segment>
-          </Segment.Group>
-          <Segment>
-            <div>
-              <Segment vertical>
-                <div>
-                  {this.props.data.title || '?'}
-                </div>
+        <Segment.Group horizontal
+          size="mini" compact
+          style={this.props.settings.darkmode ? invSegment : nomargin}>
+          <Segment style={{ 'maxWidth': '100px' }}>
+            <TransitionablePortal
+              closeOnTriggerClick
+              onOpen={this.handleOpen}
+              onClose={this.handleClose}
+              openOnTriggerClick
+              trigger={
+                <Image src={this.props.data.img} size='tiny' ui={true} />
+              }
+            >
+              <Segment style={{ right: '10%', position: 'fixed', top: '10%', zIndex: 1000 }}>
+                <Image src={this.props.data.img} size="large" ui={true} />
               </Segment>
-              <Segment vertical>
-                <Icon name='star' /> Favorite
-              </Segment>
-            </div>
+            </TransitionablePortal>
+          </Segment>
+          <Segment style={{ 'maxWidth': '200px' }}>
+            <span className='date'>
+              @<a href={this.props.data.href}>
+                {getSource(this.props.data.href)}
+              </a>
+            </span>
+            <span style={iteractions}>
+              {dateParse(this.props.data.time) || 'no data info'}
+            </span>
+          </Segment>
+          <Segment basic>
+            <h4>
+              <a href={this.props.data.href}>
+                {this.props.data.title || '?'}
+              </a>
+            </h4>
+          </Segment>
+          <Segment textAlign='right' style={{ 'maxWidth': '50px' }}>
+            <Icon color="yellow" name='star' disabled />
           </Segment>
         </Segment.Group>
       )

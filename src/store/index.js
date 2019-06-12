@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux'
-import reducers from './reducers'
+import dataset from './dataset'
 import settings from './settings'
 
 export default combineReducers({
-  reducers,
+  dataset,
   settings
 })

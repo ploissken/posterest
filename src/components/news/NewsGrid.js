@@ -25,7 +25,7 @@ class NewsGrid extends React.Component {
     data.forEach(post => {
       let postCard = <Card data={post}/>
       cols.push(<Grid.Column key={post._id} children={postCard}/>)
-      rows.push(<Grid.Row key={post._id}><Grid.Column key={post._id} children={postCard}/></Grid.Row>)
+      rows.push(<Grid.Row style={{ 'padding': '0' }} key={post._id}><Grid.Column key={post._id} children={postCard}/></Grid.Row>)
     })
     // for(var i = 0; i < 11; i++) {
     //   let postCard = <Card data={data[i]}/>

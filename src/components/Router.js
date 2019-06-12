@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { BrowserRouter, Route } from 'react-router-dom'
-import NewsGrid from './NewsGrid'
-import InstaGrid from './InstaGrid'
+import NewsGrid from './news/NewsGrid'
+import InstaGrid from './instagram/InstaGrid'
 import HeaderMenu from './HeaderMenu'
 
 export default class Router extends Component {
