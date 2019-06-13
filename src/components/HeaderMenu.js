@@ -49,7 +49,7 @@ class HeaderMenu extends Component {
           </div>
 
           <div className="item">
-            <Link to="/favorites"> <Icon name='user' /> Login </Link>
+            <Link to="/login"> <Icon name='user' /> Login </Link>
           </div>
 
         </Menu.Menu>
