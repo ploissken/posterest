@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Menu, Icon } from 'semantic-ui-react'
+import { Menu, Icon, Button } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import {connect} from 'react-redux'
 
@@ -16,6 +16,33 @@ class HeaderMenu extends Component {
     this.props.dispatch({
       type:'CHANGE_VIEW_MODE'
     })
+  })
+
+  dispatchLogout = (() => {
+    this.props.dispatch({
+      type:'USER_LOGOUT'
+    })
+  })
+
+  loginButton = (showLogout => {
+    console.log('loginbutt', showLogout)
+    if(showLogout) {
+      return (
+        <Button
+          basic circular size="mini"
+          onClick={this.dispatchLogout}
+          animated>
+          <Button.Content visible>
+            <Icon name='sign-out' />
+          </Button.Content>
+          <Button.Content hidden>
+            Logout
+          </Button.Content>
+        </Button>
+      )
+    } else {
+      return <Link to="/login"> <Icon name='user' /> Login </Link>
+    }
   })
 
   render() {
@@ -49,7 +76,7 @@ class HeaderMenu extends Component {
           </div>
 
           <div className="item">
-            <Link to="/login"> <Icon name='user' /> Login </Link>
+            {this.loginButton(this.props.login.user)}
           </div>
 
         </Menu.Menu>
@@ -60,7 +87,8 @@ class HeaderMenu extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    settings: state.settings
+    settings: state.settings,
+    login: state.login
   }
 }
 

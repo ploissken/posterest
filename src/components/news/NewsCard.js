@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Icon, Image, Segment, Button, TransitionablePortal } from 'semantic-ui-react'
+import { Card, Icon, Image, Segment, TransitionablePortal } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 
 function getSource(url) {
