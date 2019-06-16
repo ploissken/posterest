@@ -39,6 +39,7 @@ class SigninGrid extends React.Component {
             type:'USER_LOGIN',
             user: d
           })
+          this.props.history.push('/news')
         })
       } else {
         console.log('something wrong with this banana')

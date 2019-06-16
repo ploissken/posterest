@@ -40,6 +40,70 @@ const invSegment = {
 }
 
 class NewsCard extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      loading: false
+    }
+  }
+
+  saveFav(user, itemID) {
+    if(user && user._id) {
+      console.log(`user id ${user._id} favs ${itemID}`)
+      this.setState({ loading: true })
+      fetch('http://pa.localhost/toggle-fav', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          user: user,
+          item: { _id: itemID }
+        })
+      })
+      .then(res => {
+        if(res.status === 200) {
+          console.log(res)
+          res.json().then(f => {
+            console.log('alright')
+            console.log(f)
+            if(f.message && f.message === 'unfavorited') {
+              this.props.dispatch({
+                type: 'REM_FAVORITE',
+                fav: { nid: itemID }
+              })
+            } else {
+              this.props.dispatch({
+                type: 'ADD_FAVORITE',
+                fav: f
+              })
+            }
+            this.setState({ loading: false })
+          })
+        } else {
+          console.log('something wrong with this banana')
+          console.log(res)
+          console.log(res.data)
+          res.json().then(d => {
+            console.log(d)
+          })
+        }
+      })
+      .catch(err => {
+        console.log('err', err)
+      })
+    }
+  }
+
+  favIcon() {
+    return this.state.loading
+      ? 'spinner'
+      : this.props.favorites.find(e => e.nid === this.props.data._id)
+        ? 'check'
+        : 'star'
+  }
+
   render() {
     if(this.props.settings.listview) {
       return (
@@ -79,7 +143,12 @@ class NewsCard extends React.Component {
             </h4>
           </Segment>
           <Segment textAlign='right' style={{ 'maxWidth': '50px' }}>
-            <Icon color="yellow" name='star' disabled />
+            <Icon
+              color="yellow"
+              loading={this.state.loading}
+              name={this.favIcon()}
+              onClick={() => this.saveFav(this.props.login.user, this.props.data._id)}
+            />
           </Segment>
         </Segment.Group>
       )
@@ -113,7 +182,9 @@ class NewsCard extends React.Component {
 }
 const mapStateToProps = (state) => {
   return {
-    settings: state.settings
+    settings: state.settings,
+    favorites: state.favorites,
+    login: state.login
   }
 }
 

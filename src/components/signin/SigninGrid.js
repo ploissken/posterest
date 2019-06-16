@@ -43,13 +43,17 @@ class SigninGrid extends React.Component {
       console.log(res)
       if(res.status === 200) {
         res.json().then(d => {
-          console.log('finally')
+          console.log('user received:')
           console.log(d)
           this.props.dispatch({
             type:'USER_LOGIN',
-            user: d
+            user: d.user
           })
-          this.props.history.push('/news')
+          this.props.dispatch({
+            type:'SET_FAVORITE',
+            fav: d.favorites
+          })
+          // this.props.history.push('/news')
         })
       } else {
         console.log('something wrong with this banana')
