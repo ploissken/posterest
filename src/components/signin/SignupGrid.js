@@ -1,12 +1,12 @@
-import React from 'react';
+import React from 'react'
 import { Grid, Segment, Button, Form } from 'semantic-ui-react'
-import ReactNotification from "react-notifications-component"
-import "react-notifications-component/dist/theme.css"
 import { connect } from 'react-redux'
+import api from 'api'
+import Noty from 'notifier'
 
 class SigninGrid extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       uname: '',
       pword: ''
@@ -14,65 +14,25 @@ class SigninGrid extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleUNChange = this.handleUNChange.bind(this)
     this.handlePWChange = this.handlePWChange.bind(this)
-    this.notificationDOMRef = React.createRef();
   }
 
   handleSubmit(event) {
     event.preventDefault()
-    fetch('http://pa.localhost/signup', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
+    let credentials = {
       body: JSON.stringify({
         username: this.state.uname,
         password: this.state.pword
       })
-    })
-    .then(res => {
-      if(res.status === 200) {
-        res.json().then(d => {
-          console.log('finally')
-          console.log(d)
-          this.props.dispatch({
-            type:'USER_LOGIN',
-            user: d
-          })
-          this.props.history.push('/news')
-        })
-      } else {
-        console.log('something wrong with this banana')
-        console.log(res)
-        console.log(res.data)
-        res.json().then(d => {
-          this.notificationDOMRef.current.addNotification({
-            title: "error",
-            message: d.message,
-            type: "danger",
-            insert: "bottom",
-            container: "bottom-right",
-            animationIn: ["animated", "fadeIn"],
-            animationOut: ["animated", "fadeOut"],
-            slidingEnter: {
-              duration: 200,
-              cubicBezier: "cubic-bezier(0.215, 0.61, 0.355, 1)",
-              delay: 0
-            },
-            slidingExit: {
-              duration: 300,
-              cubicBezier: "cubic-bezier(0.215, 0.61, 0.355, 1)",
-              delay: 0
-            },
-            dismiss: { duration: 2000 },
-            dismissable: { click: true }
-          });
-          console.log(d)
-        })
-      }
-    })
-    .catch(err => {
-      console.log('err', err)
+    }
+    api('/signup').post(credentials).then((data) => {
+      console.log('/signup data', data)
+      this.props.dispatch({
+        type:'USER_LOGIN',
+        user: data
+      })
+      this.props.history.push('/favorites')
+    }).catch(oops => {
+      Noty().error(oops.message)
     })
   }
 
@@ -87,7 +47,6 @@ class SigninGrid extends React.Component {
   render() {
     return (
       <Segment basic style={{'height': '100vh'}}>
-        <ReactNotification ref={this.notificationDOMRef} />
         <Grid padded columns={3}>
           <Grid.Row>
             <Grid.Column>

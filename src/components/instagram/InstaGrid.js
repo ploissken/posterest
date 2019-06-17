@@ -2,6 +2,7 @@ import React from 'react';
 import Card from './InstaCard'
 import { Grid, Segment } from 'semantic-ui-react'
 import { connect } from 'react-redux'
+import api from 'api'
 
 const loadingStyle = {
   height: '100vh'
@@ -36,18 +37,9 @@ class InstaGrid extends React.Component {
   }
 
   componentDidMount() {
-    // TODO: fix this workaround
-    // var proxyUrl = 'https://cors-anywhere.herokuapp.com/'
-    let targetUrl = 'https://pa.txto.com.br/instagram'
-    // let targetUrl = 'http://pa.localhost/instagram'
-    // fetch(proxyUrl + targetUrl) // running local
-    fetch(targetUrl) // running on deploy
-    .then(res => res.json())
-    .then((data) => {
-      console.log(`creating ${data.length} cards`)
+    api('/instagram').get().then(data => {
       this.createCards(data)
-    })
-    .catch(console.log)
+    }).catch(console.log)
   }
 
   render() {

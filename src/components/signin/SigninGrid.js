@@ -1,8 +1,8 @@
 import React from 'react';
 import { Grid, Segment, Button, Icon, Form } from 'semantic-ui-react'
-import ReactNotification from "react-notifications-component"
-import "react-notifications-component/dist/theme.css"
+import Noty from 'notifier'
 import { connect } from 'react-redux'
+import api from 'api'
 
 class SigninGrid extends React.Component {
   constructor(props) {
@@ -28,73 +28,34 @@ class SigninGrid extends React.Component {
   handleSubmit(event) {
     event.preventDefault()
     console.log('here I go')
-    fetch('http://pa.localhost/login', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
+    let credentials = {
       body: JSON.stringify({
         username: this.state.uname,
         password: this.state.pword
       })
-    })
-    .then(res => {
-      console.log(res)
-      if(res.status === 200) {
-        res.json().then(d => {
-          console.log('user received:')
-          console.log(d)
-          this.props.dispatch({
-            type:'USER_LOGIN',
-            user: d.user
-          })
-          this.props.dispatch({
-            type:'SET_FAVORITE',
-            fav: d.favorites
-          })
-          // this.props.history.push('/news')
-        })
-      } else {
-        console.log('something wrong with this banana')
-        console.log(res)
-        console.log(res.data)
-        res.json().then(d => {
-          this.notificationDOMRef.current.addNotification({
-            title: "error",
-            message: d.message,
-            type: "danger",
-            insert: "bottom",
-            container: "bottom-right",
-            animationIn: ["animated", "fadeIn"],
-            animationOut: ["animated", "fadeOut"],
-            slidingEnter: {
-              duration: 200,
-              cubicBezier: "cubic-bezier(0.215, 0.61, 0.355, 1)",
-              delay: 0
-            },
-            slidingExit: {
-              duration: 300,
-              cubicBezier: "cubic-bezier(0.215, 0.61, 0.355, 1)",
-              delay: 0
-            },
-            dismiss: { duration: 2000 },
-            dismissable: { click: true }
-          });
-          console.log(d)
-        })
-      }
-    })
-    .catch(err => {
-      console.log('err', err)
+    }
+    api('/login').post(credentials).then((data) => {
+      this.props.dispatch({
+        type:'USER_LOGIN',
+        user: data.user
+      })
+      this.props.dispatch({
+        type:'SET_FAVORITE',
+        fav: data.favorites
+      })
+      // TODO: redir to profile
+    }).catch(oops => {
+      Noty().error(oops.message)
     })
   }
 
+  _handleSignInClick = () => {
+    window.open("http://localhost/login-google", "_self");
+  }
 
   render() {
     return (
       <Segment basic style={{'height': '100vh'}}>
-        <ReactNotification ref={this.notificationDOMRef} />
         <Grid padded columns={3}>
           <Grid.Row>
             <Grid.Column>
@@ -128,7 +89,7 @@ class SigninGrid extends React.Component {
                   </Button>
                   </Grid.Row>
                   <Grid.Row>
-                  <Button fluid color='google plus'>
+                  <Button fluid color='google plus' onClick={this._handleSignInClick}>
                     <Icon name='google' /> Login with Google
                   </Button>
                   </Grid.Row>

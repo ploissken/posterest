@@ -4,7 +4,6 @@
   "private": true,
   "homepage": "https://pa.txto.com.br/pstrst/",
   "dependencies": {
-    "psl": "^1.1.32",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-notifications-component": "^1.1.1",

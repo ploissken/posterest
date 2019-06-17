@@ -1,6 +1,7 @@
 import React from 'react'
 import { Card, Icon, Image, Segment, TransitionablePortal } from 'semantic-ui-react'
 import { connect } from 'react-redux'
+import api from 'api'
 
 function getSource(url) {
   try {
@@ -51,48 +52,26 @@ class NewsCard extends React.Component {
     if(user && user._id) {
       console.log(`user id ${user._id} favs ${itemID}`)
       this.setState({ loading: true })
-      fetch('http://pa.localhost/toggle-fav', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
+      let info = {
         body: JSON.stringify({
           user: user,
           item: { _id: itemID }
         })
-      })
-      .then(res => {
-        if(res.status === 200) {
-          console.log(res)
-          res.json().then(f => {
-            console.log('alright')
-            console.log(f)
-            if(f.message && f.message === 'unfavorited') {
-              this.props.dispatch({
-                type: 'REM_FAVORITE',
-                fav: { nid: itemID }
-              })
-            } else {
-              this.props.dispatch({
-                type: 'ADD_FAVORITE',
-                fav: f
-              })
-            }
-            this.setState({ loading: false })
+      }
+      api('/toggle-fav').post(info).then(data => {
+        if(data.message && data.message === 'unfavorited') {
+          this.props.dispatch({
+            type: 'REM_FAVORITE',
+            fav: { nid: itemID }
           })
         } else {
-          console.log('something wrong with this banana')
-          console.log(res)
-          console.log(res.data)
-          res.json().then(d => {
-            console.log(d)
+          this.props.dispatch({
+            type: 'ADD_FAVORITE',
+            fav: data
           })
         }
-      })
-      .catch(err => {
-        console.log('err', err)
-      })
+        this.setState({ loading: false })
+      }).catch(err => console.log(err))
     }
   }
 

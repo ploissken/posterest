@@ -5,7 +5,7 @@ const favReducer = (state = [], action) => {
       return [ ...state, action.fav ]
     case 'REM_FAVORITE':
     console.log('rem fav')
-      return [ ...state ].filter( e => e.nid != action.fav.nid )
+      return [ ...state ].filter( e => e.nid !== action.fav.nid )
     case 'SET_FAVORITE':
     console.log('set fav')
       return action.fav
