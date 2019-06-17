@@ -1,0 +1,22 @@
+version: "3"
+
+networks:
+  traefik:
+    external: true
+
+services:
+  posterest:
+    image: node:carbon
+    working_dir: '/home/node/'
+    volumes:
+      - './:/home/node/:cached'
+    networks:
+      - traefik
+    labels:
+      - "traefik.backend=posterest"
+      - "traefik.docker.network=traefik"
+      - "traefik.enable=true"
+      - "traefik.port=3000"
+    environment:
+      HOST: 0.0.0.0
+      PORT: 3000

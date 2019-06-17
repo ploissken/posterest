@@ -1,6 +1,6 @@
 const API_URL = (process.env.NODE_ENV === 'production')
   ? 'https://pa.txto.com.br'
-  : 'http://localhost:80'
+  : 'http://localhost'
 
 console.log('USING API: ' + API_URL + ' (' + process.env.NODE_ENV + ')')
 
