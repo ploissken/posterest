@@ -2,7 +2,7 @@
   "name": "posterest",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://pa.txto.com.br/pstrst/",
+  "homepage": "https://posterest.txto.com.br/",
   "dependencies": {
     "express": "^4.17.1",
     "react": "^16.8.6",
