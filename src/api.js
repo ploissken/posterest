@@ -40,10 +40,10 @@ export class PAApi {
         fetch(this.getUrl(), {
           method: method,
           credentials: "include",
+          mode: 'cors',
           headers: {
             Accept: "application/json",
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Credentials": true
+            "Content-Type": "application/json"
           },
           ...data,
           ...otherOptions
