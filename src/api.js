@@ -9,6 +9,10 @@ export class PAApi {
     this.url = url
   }
 
+  getAPI() {
+    return API_URL
+  }
+
   getUrl () {
     if (this.url) {
       return new URL(this.url, API_URL).toString()

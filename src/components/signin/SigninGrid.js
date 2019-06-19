@@ -49,8 +49,12 @@ class SigninGrid extends React.Component {
     })
   }
 
-  _handleSignInClick = () => {
-    window.open("http://localhost/login-google", "_self");
+  handleGoogleSignin = () => {
+    window.open(api().getAPI() + "/login-google", "_self");
+  }
+
+  handleFbSignin = () => {
+    window.open(api().getAPI() + "/login-fb", "_self");
   }
 
   render() {
@@ -84,12 +88,12 @@ class SigninGrid extends React.Component {
                 </Form>
                 <Grid padded>
                   <Grid.Row>
-                  <Button fluid color='facebook'>
+                  <Button fluid color='facebook' onClick={this.handleFbSignin}>
                     <Icon name='facebook' /> Login with Facebook
                   </Button>
                   </Grid.Row>
                   <Grid.Row>
-                  <Button fluid color='google plus' onClick={this._handleSignInClick}>
+                  <Button fluid color='google plus' onClick={this.handleGoogleSignin}>
                     <Icon name='google' /> Login with Google
                   </Button>
                   </Grid.Row>
