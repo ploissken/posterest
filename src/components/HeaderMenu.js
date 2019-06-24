@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Menu, Icon, Button } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import {connect} from 'react-redux'
+import api from 'api'
 
 class HeaderMenu extends Component {
   darkModeUpdate = (e => {
@@ -19,8 +20,14 @@ class HeaderMenu extends Component {
   })
 
   dispatchLogout = (() => {
-    this.props.dispatch({
-      type:'USER_LOGOUT'
+    api('/logout').get().then((data) => {
+      console.log('UIA')
+      console.log(data)
+      this.props.dispatch({
+        type:'USER_LOGOUT'
+      })
+    }).catch(oops => {
+      console.log('catcherrr', oops)
     })
   })
 

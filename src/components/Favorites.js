@@ -1,21 +1,24 @@
-import React from 'react';
+import React from 'react'
+import {connect} from 'react-redux'
 import api from 'api'
 
 class FavsGrid extends React.Component {
 
   componentDidMount() {
-    // let _self = this
-    api('/profile').get().then((data) => {
-      console.log('/profile data', data)
-      // FIXME
-      // _self.props.dispatch({
-      //   type:'USER_LOGIN',
-      //   user: data.user
-      // })
-      // _self.props.dispatch({
-      //   type:'SET_FAVORITE',
-      //   fav: data.favorites
-      // })
+    // if(this.props.login.user){
+    //
+    // }
+    // let credentials = {
+    //   body: JSON.stringify({
+    //     user: this.props.login.user
+    //   })
+    // }
+    api('/load-favs').get().then((data) => {
+      console.log('UIA')
+      console.log(data)
+    }).catch(oops => {
+      console.log('catcherrr', oops)
+      // Noty().error(oops.message)
     })
   }
 
@@ -25,5 +28,10 @@ class FavsGrid extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    login: state.login
+  }
+}
 
-export default FavsGrid
+export default connect(mapStateToProps)(FavsGrid)
