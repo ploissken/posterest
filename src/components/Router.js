@@ -4,6 +4,7 @@ import NewsGrid from './news/NewsGrid'
 import SigninGrid from './signin/SigninGrid'
 import SignupGrid from './signin/SignupGrid'
 import InstaGrid from './instagram/InstaGrid'
+import ProfileGrid from './profile/ProfileGrid'
 import FavsGrid from './Favorites'
 import HeaderMenu from './HeaderMenu'
 
@@ -16,6 +17,7 @@ export default class Router extends Component {
         <Route path="/instagram" component={InstaGrid} />
         <Route path="/news" component={NewsGrid} />
         <Route path="/favorites" component={FavsGrid} />
+        <Route path="/profile" component={ProfileGrid} />
         <Route path="/login" component={SigninGrid} />
         <Route path="/signup" component={SignupGrid} />
       </BrowserRouter>

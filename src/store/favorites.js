@@ -10,9 +10,10 @@ const favReducer = (state = [], action) => {
     console.log('set fav')
       return action.fav
     case 'USER_LOGOUT':
-    console.log('set fav')
+    console.log('fav user_logout')
       return []
     default:
+      console.log('fav default')
       return state;
   }
 }

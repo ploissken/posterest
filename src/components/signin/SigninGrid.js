@@ -36,6 +36,10 @@ class SigninGrid extends React.Component {
     }
     api('/login').post(credentials).then((data) => {
       this.props.dispatch({
+        type:'SET_COUNT',
+        count: data.count
+      })
+      this.props.dispatch({
         type:'USER_LOGIN',
         user: data.user
       })
@@ -43,8 +47,8 @@ class SigninGrid extends React.Component {
         type:'SET_FAVORITE',
         fav: data.favorites
       })
-      // TODO: redir to profile
     }).catch(oops => {
+      console.log('catcherrr', oops)
       Noty().error(oops.message)
     })
   }
@@ -58,62 +62,68 @@ class SigninGrid extends React.Component {
   }
 
   render() {
-    return (
-      <Segment basic style={{'height': '100vh'}}>
-        <Grid padded columns={3}>
-          <Grid.Row>
-            <Grid.Column>
-            </Grid.Column>
-            <Grid.Column>
-              <Segment padded>
-                <h3> Login to post e-rest </h3>
-                <Form onSubmit={this.handleSubmit}>
-                  <Form.Field>
-                    <input placeholder='username'
-                      onChange={this.handleUNChange}
-                      value={this.state.uname}/>
-                  </Form.Field>
-                  <Form.Field>
-                    <input placeholder='password'
-                    onChange={this.handlePWChange}
-                    value={this.state.pword}
-                    type="password"/>
-                  </Form.Field>
-                  <Button
-                    fluid
-                    content="Log in"
-                    color="red"
-                    type="submit"
-                    basic/>
-                </Form>
-                <Grid padded>
-                  <Grid.Row>
-                  <Button fluid color='facebook' onClick={this.handleFbSignin}>
-                    <Icon name='facebook' /> Login with Facebook
-                  </Button>
-                  </Grid.Row>
-                  <Grid.Row>
-                  <Button fluid color='google plus' onClick={this.handleGoogleSignin}>
-                    <Icon name='google' /> Login with Google
-                  </Button>
-                  </Grid.Row>
-                </Grid>
-                <Segment fluid="true" basic textAlign="center">
-                  <a href="/signup"> Take me to signup instead! </a>
+    if(this.props.login.user){
+      this.props.history.push("/profile")
+      return <Segment loading/>
+    } else {
+      return (
+        <Segment basic style={{'height': '100vh'}}>
+          <Grid padded columns={3}>
+            <Grid.Row>
+              <Grid.Column>
+              </Grid.Column>
+              <Grid.Column>
+                <Segment padded>
+                  <h3> Login to post e-rest </h3>
+                  <Form onSubmit={this.handleSubmit}>
+                    <Form.Field>
+                      <input placeholder='username'
+                        onChange={this.handleUNChange}
+                        value={this.state.uname}/>
+                    </Form.Field>
+                    <Form.Field>
+                      <input placeholder='password'
+                      onChange={this.handlePWChange}
+                      value={this.state.pword}
+                      type="password"/>
+                    </Form.Field>
+                    <Button
+                      fluid
+                      content="Log in"
+                      color="red"
+                      type="submit"
+                      basic/>
+                  </Form>
+                  <Grid padded>
+                    <Grid.Row>
+                    <Button fluid color='facebook' onClick={this.handleFbSignin}>
+                      <Icon name='facebook' /> Login with Facebook
+                    </Button>
+                    </Grid.Row>
+                    <Grid.Row>
+                    <Button fluid color='google plus' onClick={this.handleGoogleSignin}>
+                      <Icon name='google' /> Login with Google
+                    </Button>
+                    </Grid.Row>
+                  </Grid>
+                  <Segment fluid="true" basic textAlign="center">
+                    <a href="/signup"> Take me to signup instead! </a>
+                  </Segment>
                 </Segment>
-              </Segment>
-            </Grid.Column>
-            <Grid.Column>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </Segment>
-    )
+              </Grid.Column>
+              <Grid.Column>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </Segment>
+      )
+    }
   }
 }
 const mapStateToProps = (state) => {
   return {
-    settings: state.settings
+    settings: state.settings,
+    login: state.login
   }
 }
 

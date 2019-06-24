@@ -76,11 +76,13 @@ class NewsCard extends React.Component {
   }
 
   favIcon() {
-    return this.state.loading
-      ? 'spinner'
-      : this.props.favorites.find(e => e.nid === this.props.data._id)
-        ? 'check'
-        : 'star'
+    return this.props.login.user
+      ? (this.state.loading
+        ? 'spinner'
+        : this.props.favorites.find(e => e.nid === this.props.data._id)
+          ? 'check'
+          : 'star')
+      : ''
   }
 
   render() {
