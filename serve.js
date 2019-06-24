@@ -8,5 +8,5 @@ app.listen(port, () => console.log(`Post eletronic rest served @ ${port}`))
 
 app.get('*', function (req, res) {
   console.log('redirecionando o c')
-  res.redirect('/')
+  res.sendFile('./build/index.html')
 })
