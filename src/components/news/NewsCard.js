@@ -79,7 +79,7 @@ class NewsCard extends React.Component {
     return this.props.login.user
       ? (this.state.loading
         ? 'spinner'
-        : this.props.favorites.find(e => e.nid === this.props.data._id)
+        : this.props.favorites.ids.find(e => e.nid === this.props.data._id)
           ? 'check'
           : 'star')
       : ''

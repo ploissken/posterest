@@ -71,7 +71,7 @@ class ProfileGrid extends React.Component {
                       <Grid.Column textAlign="center">
                         <Statistic color="brown" size='small'>
                           <Statistic.Value>
-                            {this.props.favorites.length}
+                            {this.props.favorites.ids.length}
                           </Statistic.Value>
                           <Statistic.Label><Icon name='star' />favorites</Statistic.Label>
                         </Statistic>
