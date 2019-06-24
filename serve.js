@@ -7,6 +7,11 @@ const port = process.env.PORT
 app.listen(port, () => console.log(`Post eletronic rest served @ ${port}`))
 
 app.get('*', function (req, res) {
+  let path = require('path')
   console.log('redirecionando o c')
-  res.sendFile('./build/index.html')
+  res.sendFile(path.join(__dirname, '/build/index.html'), function(err) {
+    if (err) {
+      res.status(500).send(err)
+    }
+  })
 })
