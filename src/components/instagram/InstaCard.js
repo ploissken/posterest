@@ -10,7 +10,7 @@ const cardDescStyle = {
 const cardItemStyle = {
   overflow: 'auto',
   height: '80px',
-  'max-width': '60vw'
+  'maxWidth': '60vw'
 }
 
 const iteractions = {

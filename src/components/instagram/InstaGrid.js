@@ -9,42 +9,48 @@ const loadingStyle = {
 }
 
 class InstaGrid extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      instagram: {
-        columns: [],
-        rows: []
-      }
-    }
-  }
+  parseItems(data) {
+    return new Promise(async (resolve, reject) => {
+      let cols = []
+      let rows = []
 
-  createCards(data) {
-    let cols = []
-    let rows = []
-
-    data.forEach(post => {
-      let postCard = <Card data={post}/>
-      cols.push(<Grid.Column key={post._id} children={postCard}/>)
-      rows.push(<Grid.Row key={post._id}><Grid.Column key={post._id} children={postCard}/></Grid.Row>)
+      data.forEach(post => {
+        let postCard = <Card data={post}/>
+        cols.push(<Grid.Column key={post._id} children={postCard}/>)
+        rows.push(<Grid.Row key={post._id}><Grid.Column key={post._id} children={postCard}/></Grid.Row>)
+      })
+      resolve({ columns: cols, rows: rows })
     })
-    // for(var i = 0; i < 11; i++){
-    //   let postCard = <Card data={data[i]}/>
-    //   cols.push(<Grid.Column key={data[i]._id} children={postCard}/>)
-    //   rows.push(<Grid.Row key={data[i]._id}><Grid.Column key={data[i]._id} children={postCard}/></Grid.Row>)
-    // }
-    this.setState({ instagram: { columns: cols, rows: rows } })
   }
 
   componentDidMount() {
-    api('/instagram').get().then(data => {
-      this.createCards(data)
-    }).catch(console.log)
+    console.log('mounting', this.props.dataset.paginationDate)
+    if (!this.props.dataset.paginationDate.instagram) {
+      let date = new Date()
+      date.setDate(date.getDate() - 1)
+      this.props.dispatch({
+        type:'NEXT_PG_INSTA_DATE',
+        pgDate: date
+      })
+
+      api('/instagram').get().then((data) => {
+        this.parseItems(data).then(parsed => {
+          console.log('parsed', parsed)
+          this.props.dispatch({
+            type:'ADD_PARSED_INSTA_POSTS',
+            nRows: parsed.rows,
+            nCols: parsed.columns
+          })
+        }).catch(err => {
+          console.log(err)
+        })
+      })
+    }
   }
 
   render() {
     console.log('rendering InstaGrid')
-    if (!this.state.instagram.columns.length) {
+    if (!this.props.dataset.instagram.columns.length) {
       console.log('rendering without data')
       return(<Segment style={loadingStyle} basic color="brown" size="massive" loading />)
     } else {
@@ -53,7 +59,7 @@ class InstaGrid extends React.Component {
         return (
           <Segment basic>
             <Grid padded>
-              {this.state.instagram.rows}
+              {this.props.dataset.instagram.rows}
             </Grid>
           </Segment>
         )
@@ -61,7 +67,7 @@ class InstaGrid extends React.Component {
         return (
           <Segment basic>
             <Grid stackable padded columns={5}>
-              {this.state.instagram.columns}
+              {this.props.dataset.instagram.columns}
             </Grid>
           </Segment>
         )
@@ -72,7 +78,8 @@ class InstaGrid extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    settings: state.settings
+    settings: state.settings,
+    dataset: state.dataset
   }
 }
 
