@@ -1,6 +1,6 @@
 import React from 'react';
 import Card from './NewsCard'
-import { Grid, Segment } from 'semantic-ui-react'
+import { Grid, Segment, Button } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import api from 'api'
 
@@ -24,10 +24,36 @@ class NewsGrid extends React.Component {
     })
   }
 
+  loadMore = () => {
+    let info = {
+      body: JSON.stringify({
+        date: this.props.dataset.paginationDate.news
+      })
+    }
+
+    api('/load-more-news').post(info).then((data) => {
+      this.parseItems(data).then(parsed => {
+        console.log('load-more-news', parsed)
+        let date = new Date(this.props.dataset.paginationDate.news.getTime())
+        date.setDate(date.getDate() - 1)
+        this.props.dispatch({
+          type:'NEXT_PG_NEWS_DATE',
+          pgDate: date
+        })
+        this.props.dispatch({
+          type:'ADD_PARSED_POSTS',
+          nRows: parsed.rows,
+          nCols: parsed.columns
+        })
+      }).catch(err => {
+        console.log(err)
+      })
+    })
+  }
+
   componentDidMount() {
     if (!this.props.dataset.paginationDate.news) {
       let date = new Date()
-      date.setDate(date.getDate() - 1)
       this.props.dispatch({
         type:'NEXT_PG_NEWS_DATE',
         pgDate: date
@@ -41,6 +67,7 @@ class NewsGrid extends React.Component {
             nRows: parsed.rows,
             nCols: parsed.columns
           })
+
         }).catch(err => {
           console.log(err)
         })
@@ -60,6 +87,9 @@ class NewsGrid extends React.Component {
           <Segment basic>
             <Grid padded>
               {this.props.dataset.news.rows}
+              <Grid.Row centered>
+                <Button onClick={this.loadMore}> load more </Button>
+              </Grid.Row>
             </Grid>
           </Segment>
         )

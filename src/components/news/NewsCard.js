@@ -21,6 +21,7 @@ function getSource(url) {
 
 function dateParse(d) {
   return new Date(d).toLocaleString('pt-BR', {
+    timeZone: 'UTC',
     day: 'numeric',
     month: 'long',
     year: 'numeric' })
