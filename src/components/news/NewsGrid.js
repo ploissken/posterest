@@ -9,6 +9,12 @@ const loadingStyle = {
 }
 
 class NewsGrid extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      loadingMore: false
+    }
+  }
 
   parseItems(data) {
     return new Promise(async (resolve, reject) => {
@@ -25,6 +31,7 @@ class NewsGrid extends React.Component {
   }
 
   loadMore = () => {
+    this.setState({ loadingMore: true })
     let info = {
       body: JSON.stringify({
         date: this.props.dataset.paginationDate.news
@@ -45,6 +52,7 @@ class NewsGrid extends React.Component {
           nRows: parsed.rows,
           nCols: parsed.columns
         })
+        this.setState({ loadingMore: false })
       }).catch(err => {
         console.log(err)
       })
@@ -88,7 +96,9 @@ class NewsGrid extends React.Component {
             <Grid padded>
               {this.props.dataset.news.rows}
               <Grid.Row centered>
-                <Button onClick={this.loadMore}> load more </Button>
+                <Button
+                  className={this.state.loadingMore ? 'disabled loading' : ''}
+                  onClick={this.loadMore}> load more </Button>
               </Grid.Row>
             </Grid>
           </Segment>

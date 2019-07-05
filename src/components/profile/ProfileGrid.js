@@ -6,30 +6,6 @@ import Noty from 'notifier'
 
 class ProfileGrid extends React.Component {
 
-  componentDidMount() {
-    if(!this.props.login.user || !this.props.login.count) {
-      api('/profile').get().then(data => {
-        console.log('componentDidMount @ ProfileGrid')
-        console.log(data)
-        this.props.dispatch({
-          type:'SET_COUNT',
-          count: data.count
-        })
-        this.props.dispatch({
-          type:'USER_LOGIN',
-          user: data.user
-        })
-        this.props.dispatch({
-          type:'SET_FAVORITE',
-          fav: data.favorites
-        })
-      }).catch(oops => {
-        console.log('catcherrr', oops)
-        Noty().error(oops.message)
-      })
-    }
-  }
-
   render() {
     console.log('rendering ProfileGrid')
     if(!this.props.login.user) {

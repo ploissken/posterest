@@ -50,7 +50,7 @@ class FavsGrid extends React.Component {
       )
     } else {
       return (
-        <Segment basic>
+        <Segment basic style={{'minHeight': '100vh'}}>
           <Grid padded>
             {this.state.news.rows}
           </Grid>

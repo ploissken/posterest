@@ -61,7 +61,31 @@ class SigninGrid extends React.Component {
     window.open(api().getAPI() + "/login-fb", "_self");
   }
 
+  componentDidMount() {
+    if(!this.props.login.user || !this.props.login.count) {
+      api('/profile').get().then(data => {
+        console.log('componentDidMount @ SignInGrid')
+        console.log(data)
+        this.props.dispatch({
+          type:'SET_COUNT',
+          count: data.count
+        })
+        this.props.dispatch({
+          type:'USER_LOGIN',
+          user: data.user
+        })
+        this.props.dispatch({
+          type:'SET_FAVORITE',
+          fav: data.favorites
+        })
+      }).catch(oops => {
+        console.log('oops', oops)
+      })
+    }
+  }
+
   render() {
+    console.log('rendering SignInG')
     if(this.props.login.user){
       this.props.history.push("/profile")
       return <Segment loading/>
