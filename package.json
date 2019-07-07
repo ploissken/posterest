@@ -17,6 +17,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "deploy": "scp -r build/* root@txto.com.br:/var/www/posterest/",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
