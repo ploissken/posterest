@@ -108,6 +108,11 @@ class NewsGrid extends React.Component {
           <Segment basic>
             <Grid stackable padded columns={5}>
               {this.props.dataset.news.columns}
+              <Grid.Row centered>
+                <Button
+                  className={this.state.loadingMore ? 'disabled loading' : ''}
+                  onClick={this.loadMore}> load more </Button>
+              </Grid.Row>
             </Grid>
           </Segment>
         )

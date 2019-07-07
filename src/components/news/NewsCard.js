@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Icon, Image, Segment, TransitionablePortal } from 'semantic-ui-react'
+import { Card, Icon, Image, Segment, TransitionablePortal, Button } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import api from 'api'
 
@@ -28,7 +28,7 @@ function dateParse(d) {
 }
 
 const iteractions = {
-  'fontSize': '1em',
+  'fontSize': '0.7em',
   'display': 'block'
 }
 
@@ -136,15 +136,15 @@ class NewsCard extends React.Component {
       )
     } else {
       return (
-        <Card>
-          <Image
-            src={this.props.data.img}
-            size='medium'
-            ui={true} />
+        <Card style={this.props.settings.darkmode ? invSegment : nomargin}>
           <Card.Content>
             <Card.Header>{this.props.data.title || '?'}</Card.Header>
+            <Image
+              src={this.props.data.img}
+              size='medium'
+              ui={true} />
             <Card.Meta>
-              <span className='date'>
+              <span style={iteractions}>
                 @<a href={this.props.data.href}>
                   {getSource(this.props.data.href)}
                 </a>
@@ -155,7 +155,17 @@ class NewsCard extends React.Component {
             </Card.Meta>
           </Card.Content>
           <Card.Content extra>
-              <Icon name='star' /> Favorite
+          <Button
+            basic
+            className={this.props.settings.darkmode ? 'red inverted' : ''}
+            onClick={() => this.saveFav(this.props.login.user, this.props.data._id)}>
+            <Icon
+              color="yellow"
+              loading={this.state.loading}
+              name={this.favIcon()}
+            /> Favorite
+          </Button>
+
           </Card.Content>
         </Card>
       )

@@ -24,7 +24,8 @@ code {
   color: #200;
 }
 
-.inverted h4 a {
+.inverted h4 a,
+.inverted .header {
   color: #FFF!important;
 }
 
