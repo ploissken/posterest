@@ -1,24 +1,20 @@
 import React, { Component } from 'react'
-import { Menu, Icon, Button } from 'semantic-ui-react'
+import { Menu, Icon, Button, Dropdown, Image, Input } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import {connect} from 'react-redux'
 import api from 'api'
 
+const options = [
+  { value: 'favorites', text: 'Favorites', icon: 'star'},
+  { value: 'settings', text: 'Settings', icon: 'settings'},
+  { value: 'sign-out', text: 'Sign Out', icon: 'sign out'}
+]
+
+const trigger = (
+    <Icon name="user circle"/>
+)
+
 class HeaderMenu extends Component {
-  darkModeUpdate = (e => {
-    e.preventDefault();
-    this.props.dispatch({
-      type:'CHANGE_DARK_MODE'
-    })
-  })
-
-  viewModeUpdate = (e => {
-    e.preventDefault();
-    this.props.dispatch({
-      type:'CHANGE_VIEW_MODE'
-    })
-  })
-
   dispatchLogout = (() => {
     api('/logout').get().then((data) => {
       console.log('UIA')
@@ -31,26 +27,41 @@ class HeaderMenu extends Component {
     })
   })
 
-  loginButton = (showLogout => {
-    console.log('loginbutt', showLogout)
-    if(showLogout) {
+  loginButton = (userLogged => {
+    console.log('loginbutt', userLogged)
+    if(userLogged) {
       return (
-        <Button
-          basic circular size="mini"
-          onClick={this.dispatchLogout}
-          animated>
-          <Button.Content visible>
-            <Icon name='sign-out' />
-          </Button.Content>
-          <Button.Content hidden>
-            Logout
-          </Button.Content>
-        </Button>
+        <Dropdown
+          trigger={trigger}
+          onChange={this.handleChange}
+          floating
+          icon={null} >
+          <Dropdown.Menu className={this.props.settings.darkmode ? 'inverted' : ''}>
+            <Dropdown.Header icon='user' content='YOUR USERNAME' />
+            <Dropdown.Divider />
+            <div className="item">
+              <Link to="/favorites"> <Icon name='star' /> Favorites </Link>
+            </div>
+            <div className="item">
+              <Link to="/settings"> <Icon name='cog' /> Settings </Link>
+            </div>
+            <a className="item" onClick={this.dispatchLogout}>
+              <Icon name='sign out' /> Sign-out
+            </a>
+          </Dropdown.Menu>
+        </Dropdown>
       )
     } else {
       return <Link to="/login"> <Icon name='user' /> Login </Link>
     }
   })
+
+  handleChange = (e, { value }) => {
+    if (value) {
+
+    }
+    console.log('handling change', value)
+  }
 
   render() {
     return (
@@ -60,26 +71,12 @@ class HeaderMenu extends Component {
         <Menu.Item> posterest </Menu.Item>
         <Menu.Menu position='right'>
 
-          <Menu.Item name='darkmode' onClick={this.darkModeUpdate}>
-            <Icon name={this.props.settings.darkmode ? 'sun' : 'moon'}
-              className={this.props.settings.darkmode ? 'yellow loading' : ''}
-            />
-          </Menu.Item>
-
-          <Menu.Item name='viewmode' onClick={this.viewModeUpdate} >
-            <Icon name={this.props.settings.listview ? 'th' : 'list'} />
-          </Menu.Item>
-
           <div className="item">
             <Link to="/instagram"> <Icon name='instagram' /> Instagram </Link>
           </div>
 
           <div className="item">
             <Link to="/news"> <Icon name='bullhorn' /> News </Link>
-          </div>
-
-          <div className="item">
-            <Link to="/favorites"> <Icon name='star' /> Favorites </Link>
           </div>
 
           <div className="item">

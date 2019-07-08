@@ -1,5 +1,6 @@
 import React from 'react'
 import { Grid, Segment, Button, Form } from 'semantic-ui-react'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import api from 'api'
 import Noty from 'notifier'
@@ -74,7 +75,7 @@ class SigninGrid extends React.Component {
                     basic/>
                 </Form>
                 <Segment fluid='true' basic textAlign="center">
-                  <a href="/login"> I'm mad, take me back to login! </a>
+                  <Link to="/login"> I'm mad, take me back to login! </Link>
                 </Segment>
               </Segment>
             </Grid.Column>

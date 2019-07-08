@@ -43,7 +43,7 @@ const invSegment = {
 
 class NewsCard extends React.Component {
   render() {
-    if(this.props.settings.listview) {
+    if(this.props.settings.listview && !this.props.compact) {
       return (
         <Segment.Group horizontal
           size="mini" compact

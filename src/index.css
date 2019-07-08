@@ -26,8 +26,13 @@ code {
 
 .inverted h4 a,
 .inverted .header,
+.inverted .ui.toggle.checkbox input:checked~label,
 .inverted .description {
   color: #FFF!important;
+}
+
+.dropdown .inverted {
+  background-color: #333!important;
 }
 
 .inverted .menu a {

@@ -54,7 +54,7 @@ class FavsGrid extends React.Component {
     allFavs.forEach(post => {
       let postCard = post.caption
         ? <InstaCard data={post}/>
-        : <NewsCard data={post}/>
+        : <NewsCard data={post} compact={true}/>
 
       rows.push(<Grid.Column key={post._id} children={postCard}/>)
       // rows.push(<Grid.Row style={{ 'padding': '0' }} key={post._id}><Grid.Column key={post._id} children={postCard}/></Grid.Row>)
