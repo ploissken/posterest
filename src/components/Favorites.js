@@ -1,6 +1,7 @@
 import React from 'react'
-import Card from './news/NewsCard'
-import { Grid, Segment } from 'semantic-ui-react'
+import NewsCard from 'components/news/NewsCard'
+import InstaCard from 'components/instagram/InstaCard'
+import { Grid, Segment, Button } from 'semantic-ui-react'
 import {connect} from 'react-redux'
 import api from 'api'
 
@@ -14,12 +15,49 @@ class FavsGrid extends React.Component {
     }
   }
 
+  // loadMore = () => {
+  //   this.setState({ loadingMore: true })
+  //   let info = {
+  //     body: JSON.stringify({
+  //       total: this.props.favorites.ids.length
+  //     })
+  //   }
+  //
+  //   api('/load-more-favs').post(info).then((data) => {
+  //     this.parseItems(data).then(parsed => {
+  //       console.log('load-more-favs', parsed)
+  //       let date = new Date(this.props.dataset.paginationDate.news.getTime())
+  //       date.setDate(date.getDate() - 1)
+  //       this.props.dispatch({
+  //         type:'NEXT_PG_NEWS_DATE',
+  //         pgDate: date
+  //       })
+  //       this.props.dispatch({
+  //         type:'ADD_PARSED_POSTS',
+  //         nRows: parsed.rows,
+  //         nCols: parsed.columns
+  //       })
+  //       this.setState({ loadingMore: false })
+  //     }).catch(err => {
+  //       console.log(err)
+  //     })
+  //   })
+  // }
+
   createCards(data) {
     let rows = []
 
-    data.news.forEach(post => {
-      let postCard = <Card data={post}/>
-      rows.push(<Grid.Row style={{ 'padding': '0' }} key={post._id}><Grid.Column key={post._id} children={postCard}/></Grid.Row>)
+    let allFavs = [...data.news, ...data.instagram].sort((a, b) => {
+      return new Date(a.time) - new Date(b.time)
+    })
+
+    allFavs.forEach(post => {
+      let postCard = post.caption
+        ? <InstaCard data={post}/>
+        : <NewsCard data={post}/>
+
+      rows.push(<Grid.Column key={post._id} children={postCard}/>)
+      // rows.push(<Grid.Row style={{ 'padding': '0' }} key={post._id}><Grid.Column key={post._id} children={postCard}/></Grid.Row>)
     })
     console.log('news', data[0])
     this.setState({ news: { rows: rows } })
@@ -50,8 +88,8 @@ class FavsGrid extends React.Component {
       )
     } else {
       return (
-        <Segment basic style={{'minHeight': '100vh'}}>
-          <Grid padded>
+        <Segment basic>
+          <Grid stackable padded columns={5}>
             {this.state.news.rows}
           </Grid>
         </Segment>
