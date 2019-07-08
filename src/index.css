@@ -25,7 +25,8 @@ code {
 }
 
 .inverted h4 a,
-.inverted .header {
+.inverted .header,
+.inverted .description {
   color: #FFF!important;
 }
 

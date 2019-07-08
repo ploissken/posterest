@@ -1,11 +1,8 @@
 import React from 'react';
 import { Segment, Grid, Statistic, Icon } from 'semantic-ui-react'
 import { connect } from 'react-redux'
-import api from 'api'
-import Noty from 'notifier'
 
 class ProfileGrid extends React.Component {
-
   render() {
     console.log('rendering ProfileGrid')
     if(!this.props.login.user) {

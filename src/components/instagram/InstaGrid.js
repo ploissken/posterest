@@ -17,7 +17,6 @@ class InstaGrid extends React.Component {
       data.forEach(post => {
         let postCard = <Card data={post}/>
         cols.push(<Grid.Column key={post._id} children={postCard}/>)
-        rows.push(<Grid.Row key={post._id}><Grid.Column key={post._id} children={postCard}/></Grid.Row>)
       })
       resolve({ columns: cols, rows: rows })
     })
@@ -55,23 +54,13 @@ class InstaGrid extends React.Component {
       return(<Segment style={loadingStyle} basic color="brown" size="massive" loading />)
     } else {
       console.log('rendering with data')
-      if(this.props.settings.listview) {
-        return (
-          <Segment basic>
-            <Grid padded>
-              {this.props.dataset.instagram.rows}
-            </Grid>
-          </Segment>
-        )
-      } else {
-        return (
-          <Segment basic>
-            <Grid stackable padded columns={5}>
-              {this.props.dataset.instagram.columns}
-            </Grid>
-          </Segment>
-        )
-      }
+      return (
+        <Segment basic>
+          <Grid stackable padded columns={5}>
+            {this.props.dataset.instagram.columns}
+          </Grid>
+        </Segment>
+      )
     }
   }
 }

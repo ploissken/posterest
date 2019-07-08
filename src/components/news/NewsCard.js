@@ -1,7 +1,7 @@
 import React from 'react'
-import { Card, Icon, Image, Segment, TransitionablePortal, Button } from 'semantic-ui-react'
+import { Card, Image, Segment, TransitionablePortal } from 'semantic-ui-react'
+import FavButton from 'components/commons/FavButton'
 import { connect } from 'react-redux'
-import api from 'api'
 
 function getSource(url) {
   try {
@@ -42,50 +42,6 @@ const invSegment = {
 }
 
 class NewsCard extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      loading: false
-    }
-  }
-
-  saveFav(user, itemID) {
-    if(user && user._id) {
-      console.log(`user id ${user._id} favs ${itemID}`)
-      this.setState({ loading: true })
-      let info = {
-        body: JSON.stringify({
-          user: user,
-          item: { _id: itemID }
-        })
-      }
-      api('/toggle-fav').post(info).then(data => {
-        if(data.message && data.message === 'unfavorited') {
-          this.props.dispatch({
-            type: 'REM_FAVORITE',
-            fav: { nid: itemID }
-          })
-        } else {
-          this.props.dispatch({
-            type: 'ADD_FAVORITE',
-            fav: data
-          })
-        }
-        this.setState({ loading: false })
-      }).catch(err => console.log(err))
-    }
-  }
-
-  favIcon() {
-    return this.props.login.user
-      ? (this.state.loading
-        ? 'spinner'
-        : this.props.favorites.ids.find(e => e.nid === this.props.data._id)
-          ? 'check'
-          : 'star')
-      : ''
-  }
-
   render() {
     if(this.props.settings.listview) {
       return (
@@ -124,14 +80,9 @@ class NewsCard extends React.Component {
               </a>
             </h4>
           </Segment>
-          <Segment textAlign='right' style={{ 'maxWidth': '50px' }}>
-            <Icon
-              color="yellow"
-              loading={this.state.loading}
-              name={this.favIcon()}
-              onClick={() => this.saveFav(this.props.login.user, this.props.data._id)}
-            />
-          </Segment>
+          <FavButton
+            compact={this.props.settings.listview}
+            postID={this.props.data._id} />
         </Segment.Group>
       )
     } else {
@@ -155,17 +106,8 @@ class NewsCard extends React.Component {
             </Card.Meta>
           </Card.Content>
           <Card.Content extra>
-          <Button
-            basic
-            className={this.props.settings.darkmode ? 'red inverted' : ''}
-            onClick={() => this.saveFav(this.props.login.user, this.props.data._id)}>
-            <Icon
-              color="yellow"
-              loading={this.state.loading}
-              name={this.favIcon()}
-            /> Favorite
-          </Button>
-
+            <FavButton
+              postID={this.props.data._id} />
           </Card.Content>
         </Card>
       )
@@ -174,9 +116,7 @@ class NewsCard extends React.Component {
 }
 const mapStateToProps = (state) => {
   return {
-    settings: state.settings,
-    favorites: state.favorites,
-    login: state.login
+    settings: state.settings
   }
 }
 
