@@ -37,6 +37,10 @@ class SigninGrid extends React.Component {
     }
     api('/login').post(credentials).then((data) => {
       this.props.dispatch({
+        type:'SET_SETTINGS',
+        prefs: data.prefs
+      })
+      this.props.dispatch({
         type:'SET_COUNT',
         count: data.count
       })
@@ -89,7 +93,7 @@ class SigninGrid extends React.Component {
     console.log('rendering SignInG')
     if(this.props.login.user){
       this.props.history.push("/profile")
-      return <Segment loading/>
+      return null
     } else {
       return (
         <Segment basic style={{'height': '100vh'}}>

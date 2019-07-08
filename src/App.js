@@ -12,6 +12,10 @@ class App extends Component {
         console.log('componentDidMount @ SignInGrid')
         console.log(data)
         this.props.dispatch({
+          type:'SET_SETTINGS',
+          prefs: data.prefs
+        })
+        this.props.dispatch({
           type:'SET_COUNT',
           count: data.count
         })

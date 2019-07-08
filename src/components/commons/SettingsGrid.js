@@ -1,19 +1,42 @@
-import React from 'react';
+import React from 'react'
 import { Grid, Segment, Icon, Checkbox, Button } from 'semantic-ui-react'
 import { connect } from 'react-redux'
+import api from 'api'
 
 class SettingsGrid extends React.Component {
   darkModeUpdate = (e => {
-    e.preventDefault();
-    this.props.dispatch({
-      type:'CHANGE_DARK_MODE'
+    e.preventDefault()
+    let param = {
+      body: JSON.stringify({
+        darkmode: !this.props.settings.darkmode
+      })
+    }
+    api('/toggle-darkmode').post(param).then(data => {
+      console.log('toggle-darkmode @ SettingsGrid')
+      console.log(data)
+      this.props.dispatch({
+        type:'CHANGE_DARK_MODE'
+      })
+    }).catch(oops => {
+      console.log('oops', oops)
     })
   })
 
   viewModeUpdate = (e => {
-    e.preventDefault();
-    this.props.dispatch({
-      type:'CHANGE_VIEW_MODE'
+    e.preventDefault()
+    let param = {
+      body: JSON.stringify({
+        listview: !this.props.settings.listview
+      })
+    }
+    api('/toggle-viewmode').post(param).then(data => {
+      console.log('toggle-viewmode @ SettingsGrid')
+      console.log(data)
+      this.props.dispatch({
+        type:'CHANGE_VIEW_MODE'
+      })
+    }).catch(oops => {
+      console.log('oops', oops)
     })
   })
 
@@ -36,8 +59,8 @@ class SettingsGrid extends React.Component {
                       label="Dark theme"
                       onChange={this.darkModeUpdate}
                       checked={this.props.settings.darkmode}/>
-                      Display high contrast text against a dark background: saves energy and its pretty cool
                   </Grid.Row>
+                    Display high contrast text against a dark background: saves energy and its pretty cool
                   <Grid.Row>
                     <h4> News Grid </h4>
                   </Grid.Row>
