@@ -73,7 +73,7 @@ class NewsCard extends React.Component {
               {dateParse(this.props.data.time) || 'no data info'}
             </span>
           </Segment>
-          <Segment basic>
+          <Segment fluid basic textAlign='left'>
             <h4>
               <a href={this.props.data.href}>
                 {this.props.data.title || '?'}

@@ -1,6 +1,6 @@
 import React from 'react';
 import Card from './InstaCard'
-import { Grid, Segment } from 'semantic-ui-react'
+import { Grid, Segment, Button } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import api from 'api'
 
@@ -9,6 +9,13 @@ const loadingStyle = {
 }
 
 class InstaGrid extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      loadingMore: false
+    }
+  }
+
   parseItems(data) {
     return new Promise(async (resolve, reject) => {
       let cols = []
@@ -19,6 +26,35 @@ class InstaGrid extends React.Component {
         cols.push(<Grid.Column key={post._id} children={postCard}/>)
       })
       resolve({ columns: cols, rows: rows })
+    })
+  }
+
+  loadMore = () => {
+    this.setState({ loadingMore: true })
+    let info = {
+      body: JSON.stringify({
+        date: this.props.dataset.paginationDate.instagram
+      })
+    }
+
+    api('/load-more-insta').post(info).then((data) => {
+      this.parseItems(data).then(parsed => {
+        console.log('load-more-insta', parsed)
+        let date = new Date(this.props.dataset.paginationDate.instagram.getTime())
+        date.setDate(date.getDate() - 1)
+        this.props.dispatch({
+          type:'NEXT_PG_INSTA_DATE',
+          pgDate: date
+        })
+        this.props.dispatch({
+          type:'ADD_PARSED_INSTA_POSTS',
+          nRows: parsed.rows,
+          nCols: parsed.columns
+        })
+        this.setState({ loadingMore: false })
+      }).catch(err => {
+        console.log(err)
+      })
     })
   }
 
@@ -58,6 +94,11 @@ class InstaGrid extends React.Component {
         <Segment basic>
           <Grid stackable padded columns={5}>
             {this.props.dataset.instagram.columns}
+            <Grid.Row centered>
+              <Button
+                className={this.state.loadingMore ? 'disabled loading' : ''}
+                onClick={this.loadMore}> load more </Button>
+            </Grid.Row>
           </Grid>
         </Segment>
       )

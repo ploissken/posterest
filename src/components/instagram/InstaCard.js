@@ -1,16 +1,11 @@
 import React from 'react'
-import { Card, Icon, Image, Segment, TransitionablePortal } from 'semantic-ui-react'
+import { Card, Icon, Image, Segment } from 'semantic-ui-react'
 import FavButton from 'components/commons/FavButton'
 import { connect } from 'react-redux'
 
 const cardDescStyle = {
   overflow: 'auto',
   height: '100px'
-}
-
-const cardItemStyle = {
-  overflow: 'auto',
-  height: '80px'
 }
 
 const iteractions = {
