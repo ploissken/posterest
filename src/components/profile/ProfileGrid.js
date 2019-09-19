@@ -1,6 +1,12 @@
 import React from 'react';
-import { Segment, Grid, Statistic, Icon } from 'semantic-ui-react'
+import { Segment, Grid, Statistic, Icon, Table } from 'semantic-ui-react'
+import SimpleTable from 'components/commons/SimpleTable'
 import { connect } from 'react-redux'
+
+const rightAligned = {
+  'textAlign': 'right',
+  'paddingRight' : '10px'
+}
 
 class ProfileGrid extends React.Component {
   render() {
@@ -11,6 +17,33 @@ class ProfileGrid extends React.Component {
         <Segment basic style={{'height': '100vh'}} loading/>
       )
     } else {
+      let rows = []
+      this.props.login.count.news.details.forEach(url => {
+        let row = {
+          columns: []
+        }
+        row.columns.push({
+          value: url.count,
+          style: rightAligned
+        })
+        row.columns.push({
+          value: url.label,
+        })
+
+        rows.push(row)
+      })
+
+      rows.push({ columns: [{ value: '-----' }] })
+      rows.push({ columns: [
+        { value: this.props.login.count.news.total, style: rightAligned },
+        { value: 'blog posts' },
+      ] })
+      rows.push({ columns: [
+        { value: this.props.login.count.instagram.total, style: rightAligned },
+        { value: 'instagram posts' },
+      ] })
+
+
       return (
         <Segment basic style={{'height': '100vh'}}>
           <Grid padded columns={3}>
@@ -21,35 +54,16 @@ class ProfileGrid extends React.Component {
                   <h3> Welcome {this.props.login.user.social_name || this.props.login.user.username}!</h3>
                   <Grid padded>
                     <Grid.Row>
-                      Post e-rest counts with:
+                      posterest
+                    </Grid.Row>
+
+                    <Grid.Row>
+                      <SimpleTable rows={rows} />
                     </Grid.Row>
                     <Grid.Row>
-                      <Statistic.Group size='small'>
-                        <Statistic color="red" size='small'>
-                          <Statistic.Value>{this.props.login.count.news}</Statistic.Value>
-                          <Statistic.Label><Icon name='newspaper outline' />Blog posts</Statistic.Label>
-                        </Statistic>
-                        <Statistic color="teal" size='small'>
-                          <Statistic.Value>
-                            {this.props.login.count.instagram}
-                          </Statistic.Value>
-                          <Statistic.Label><Icon name='instagram' />Instagram posts</Statistic.Label>
-                        </Statistic>
-                      </Statistic.Group>
+                      <Icon name='star' /> {this.props.favorites.ids.length} favorites
                     </Grid.Row>
-                    <Grid.Row>
-                      You have
-                    </Grid.Row>
-                    <Grid.Row>
-                      <Grid.Column textAlign="center">
-                        <Statistic color="brown" size='small'>
-                          <Statistic.Value>
-                            {this.props.favorites.ids.length}
-                          </Statistic.Value>
-                          <Statistic.Label><Icon name='star' />favorites</Statistic.Label>
-                        </Statistic>
-                      </Grid.Column>
-                    </Grid.Row>
+
                   </Grid>
                 </Segment>
               </Grid.Column>
