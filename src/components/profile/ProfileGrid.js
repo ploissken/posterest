@@ -1,6 +1,6 @@
 import React from 'react';
-import { Segment, Grid, Icon } from 'semantic-ui-react'
-import SimpleTable from 'components/commons/SimpleTable'
+import { Segment, Grid, Icon, Table } from 'semantic-ui-react'
+// import SimpleTable from 'components/commons/SimpleTable'
 import { connect } from 'react-redux'
 
 const rightAligned = {
@@ -43,6 +43,12 @@ class ProfileGrid extends React.Component {
         { value: 'instagram posts' },
       ] })
 
+      const renderingRows = rows.map(row => {
+        const rowCells = row.columns.map(column => {
+          return (<Table.Cell style={column.style}>{column.value}</Table.Cell>)
+        })
+        return(<Table.Row>{rowCells}</Table.Row>)
+      })
 
       return (
         <Segment basic style={{'height': '100vh'}}>
@@ -58,7 +64,9 @@ class ProfileGrid extends React.Component {
                     </Grid.Row>
 
                     <Grid.Row>
-                      <SimpleTable rows={rows} />
+                      <Table.Body>
+                        {renderingRows}
+                      </Table.Body>
                     </Grid.Row>
                     <Grid.Row>
                       <Icon name='star' /> {this.props.favorites.ids.length} favorites
