@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
-import { Menu, Icon, Button, Dropdown, Image, Input } from 'semantic-ui-react'
+import { Menu, Icon, Dropdown } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import {connect} from 'react-redux'
 import api from 'api'
 
-const options = [
-  { value: 'favorites', text: 'Favorites', icon: 'star'},
-  { value: 'settings', text: 'Settings', icon: 'settings'},
-  { value: 'sign-out', text: 'Sign Out', icon: 'sign out'}
-]
+// const options = [
+//   { value: 'favorites', text: 'Favorites', icon: 'star'},
+//   { value: 'settings', text: 'Settings', icon: 'settings'},
+//   { value: 'sign-out', text: 'Sign Out', icon: 'sign out'}
+// ]
 
 const trigger = (
     <Icon name="user circle"/>
@@ -37,7 +37,7 @@ class HeaderMenu extends Component {
           floating
           icon={null} >
           <Dropdown.Menu className={this.props.settings.darkmode ? 'inverted' : ''}>
-            <Dropdown.Header icon='user' content='YOUR USERNAME' />
+            <Dropdown.Header icon='user' content={this.props.login.user.social_name || this.props.login.user.username} />
             <Dropdown.Divider />
             <div className="item">
               <Link to="/favorites"> <Icon name='star' /> Favorites </Link>
@@ -45,9 +45,9 @@ class HeaderMenu extends Component {
             <div className="item">
               <Link to="/settings"> <Icon name='cog' /> Settings </Link>
             </div>
-            <a className="item" onClick={this.dispatchLogout}>
+            <button className="item" onClick={this.dispatchLogout}>
               <Icon name='sign out' /> Sign-out
-            </a>
+            </button>
           </Dropdown.Menu>
         </Dropdown>
       )

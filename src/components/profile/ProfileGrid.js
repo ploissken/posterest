@@ -1,5 +1,5 @@
 import React from 'react';
-import { Segment, Grid, Statistic, Icon, Table } from 'semantic-ui-react'
+import { Segment, Grid, Icon } from 'semantic-ui-react'
 import SimpleTable from 'components/commons/SimpleTable'
 import { connect } from 'react-redux'
 

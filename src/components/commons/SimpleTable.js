@@ -3,14 +3,11 @@ import { Table } from 'semantic-ui-react'
 
 export default class SimpleTable extends React.Component {
   render() {
-    let rows = []
-
-    this.props.rows.forEach(row => {
-      let rowCells = []
-      row.columns.forEach(column => {
-        rowCells.push(<Table.Cell style={column.style}>{column.value}</Table.Cell>)
+    const rows = this.props.rows.map(row => {
+      const rowCells = row.columns.map(column => {
+        return (<Table.Cell style={column.style}>{column.value}</Table.Cell>)
       })
-      rows.push(<Table.Row>{rowCells}</Table.Row>)
+      return(<Table.Row>{rowCells}</Table.Row>)
     })
 
     return (

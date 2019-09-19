@@ -1,7 +1,7 @@
 import React from 'react'
 import NewsCard from 'components/news/NewsCard'
 import InstaCard from 'components/instagram/InstaCard'
-import { Grid, Segment, Button } from 'semantic-ui-react'
+import { Grid, Segment } from 'semantic-ui-react'
 import {connect} from 'react-redux'
 import api from 'api'
 
