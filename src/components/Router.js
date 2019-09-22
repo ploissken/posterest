@@ -6,6 +6,7 @@ import SignupGrid from 'components/signin/SignupGrid'
 import InstaGrid from 'components/instagram/InstaGrid'
 import ProfileGrid from 'components/profile/ProfileGrid'
 import SettingsGrid from 'components/commons/SettingsGrid'
+import MinimalGrid from 'components/commons/MinimalGrid'
 import FavsGrid from 'components/commons/FavsGrid'
 import HeaderMenu from 'components/commons/HeaderMenu'
 
@@ -22,6 +23,7 @@ export default class Router extends Component {
         <Route path="/login" component={SigninGrid} />
         <Route path="/signup" component={SignupGrid} />
         <Route path="/settings" component={SettingsGrid} />
+        <Route path="/minimal" component={MinimalGrid} />
       </BrowserRouter>
     )
   }

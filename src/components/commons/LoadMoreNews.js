@@ -1,5 +1,5 @@
 import React from 'react';
-import Card from './NewsCard'
+import Card from 'components/news/NewsCard'
 import { Grid, Segment, Button } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import api from 'api'
@@ -8,7 +8,7 @@ const loadingStyle = {
   height: '100vh'
 }
 
-class NewsGrid extends React.Component {
+class LoadMoreNews extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -86,40 +86,17 @@ class NewsGrid extends React.Component {
   }
 
   render() {
-    console.log('rendering News')
-    if (!this.props.dataset.news.columns.length) {
-      console.log('rendering without data')
-      return(<Segment style={loadingStyle} basic color="brown" size="massive" loading />)
-    } else {
-      console.log('rendering with data')
-      if(this.props.settings.listview) {
-        return (
-          <Segment basic>
-            <Grid padded>
-              {this.props.dataset.news.rows}
-              <Grid.Row centered>
-                <Button
-                  className={this.state.loadingMore ? 'disabled loading' : ''}
-                  onClick={this.loadMore}> load more </Button>
-              </Grid.Row>
-            </Grid>
-          </Segment>
-        )
-      } else {
-        return (
-          <Segment basic>
-            <Grid stackable padded columns={5}>
-              {this.props.dataset.news.columns}
-              <Grid.Row centered>
-                <Button
-                  className={this.state.loadingMore ? 'disabled loading' : ''}
-                  onClick={this.loadMore}> load more </Button>
-              </Grid.Row>
-            </Grid>
-          </Segment>
-        )
-      }
-    }
+    return (
+      <Segment fluid basic>
+        <Grid>
+          <Grid.Row centered>
+            <Button
+              className={this.state.loadingMore ? 'disabled loading' : ''}
+              onClick={this.loadMore}> load more </Button>
+          </Grid.Row>
+        </Grid>
+      </Segment>
+    )
   }
 }
 const mapStateToProps = (state) => {
@@ -129,4 +106,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(NewsGrid)
+export default connect(mapStateToProps)(LoadMoreNews)

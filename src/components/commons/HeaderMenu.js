@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Menu, Icon, Dropdown } from 'semantic-ui-react'
+import { Menu, Icon, Dropdown, Label } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import {connect} from 'react-redux'
 import api from 'api'
@@ -70,6 +70,14 @@ class HeaderMenu extends Component {
         color={this.props.settings.darkmode ? 'grey' : 'black'}>
         <Menu.Item> posterest </Menu.Item>
         <Menu.Menu position='right'>
+
+          <div className="item">
+            <Link to="/minimal">
+              <Label color='gray' horizontal>
+                 try minimal beta (; 
+              </Label>
+             </Link>
+          </div>
 
           <div className="item">
             <Link to="/instagram"> <Icon name='instagram' /> Instagram </Link>

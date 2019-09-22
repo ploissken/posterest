@@ -43,8 +43,8 @@ class FavButton extends React.Component {
       ? (this.state.loading
         ? 'spinner'
         : this.props.favorites.ids.find(e => e.nid === this.props.postID)
-          ? 'check'
-          : 'star')
+          ? 'star'
+          : 'star outline')
       : ''
   }
 

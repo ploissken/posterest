@@ -1,5 +1,6 @@
 const initialSettings = {
   news: {
+    raw: [],
     columns: [],
     rows: []
   },
@@ -22,7 +23,8 @@ const postReducer = (state = initialSettings, action) => {
         ...state,
         news: {
           columns: [ ...state.news.columns, ...action.nCols ],
-          rows: [ ...state.news.rows, ...action.nRows ]
+          rows: [ ...state.news.rows, ...action.nRows ],
+          raw: [ ...state.news.raw, ...action.raw ]
         }
       }
     case 'ADD_PARSED_INSTA_POSTS':
