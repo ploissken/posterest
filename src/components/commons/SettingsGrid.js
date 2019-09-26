@@ -4,6 +4,25 @@ import { connect } from 'react-redux'
 import api from 'api'
 
 class SettingsGrid extends React.Component {
+  themeUpdate = (e => {
+    e.preventDefault()
+    let param = {
+      body: JSON.stringify({
+        minimal: !this.props.settings.minimal
+      })
+    }
+    console.log('sending ', param)
+    api('/toggle-minimal').post(param).then(data => {
+      console.log('toggle-minimal @ SettingsGrid')
+      console.log(data)
+      this.props.dispatch({
+        type:'CHANGE_MINIMAL_MODE'
+      })
+    }).catch(oops => {
+      console.log('oops', oops)
+    })
+  })
+
   darkModeUpdate = (e => {
     e.preventDefault()
     let param = {
@@ -61,6 +80,13 @@ class SettingsGrid extends React.Component {
                       checked={this.props.settings.darkmode}/>
                   </Grid.Row>
                     Display high contrast text against a dark background: saves energy and its pretty cool
+                    <Grid.Row>
+                      <Checkbox toggle
+                        label="Minimal theme"
+                        onChange={this.themeUpdate}
+                        checked={this.props.settings.minimal}/>
+                    </Grid.Row>
+                      Changes menu and display minimal news information
                   <Grid.Row>
                     <h4> News Grid </h4>
                   </Grid.Row>
@@ -74,6 +100,7 @@ class SettingsGrid extends React.Component {
                       /> {this.props.settings.listview ? 'Displaying as a list' : 'Displaying as cards'}
                     </Button>
                   </Grid.Row>
+                  * unavailable for minimal theme<br/>
                   You can change the way your News Feed is displayed: headlines list or a masonry cards view
                 </Grid>
               </Segment>

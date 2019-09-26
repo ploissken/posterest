@@ -87,10 +87,11 @@ class LoadMoreNews extends React.Component {
 
   render() {
     return (
-      <Segment fluid basic>
+      <Segment basic>
         <Grid>
           <Grid.Row centered>
-            <Button
+            <Button basic
+              inverted={this.props.settings.darkmode}
               className={this.state.loadingMore ? 'disabled loading' : ''}
               onClick={this.loadMore}> load more </Button>
           </Grid.Row>

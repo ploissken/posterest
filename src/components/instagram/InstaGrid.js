@@ -92,9 +92,9 @@ class InstaGrid extends React.Component {
       console.log('rendering with data')
       return (
         <Segment basic>
-          <Grid stackable padded columns={5}>
+          <Grid stackable padded columns={4}>
             {this.props.dataset.instagram.columns}
-            <Grid.Row centered>
+            <Grid.Row stretched centered>
               <Button
                 className={this.state.loadingMore ? 'disabled loading' : ''}
                 onClick={this.loadMore}> load more </Button>

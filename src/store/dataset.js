@@ -19,12 +19,26 @@ const postReducer = (state = initialSettings, action) => {
   switch(action.type) {
     case 'ADD_PARSED_POSTS':
       console.log('dataset add_posts')
+      const pgDate = new Date(state.paginationDate.news)
+      console.log(`pgDate is ${pgDate}`)
+
+      const options = {
+        day: 'numeric',
+        month: 'numeric'
+      }
+      const dateRow = {
+        _id: pgDate,
+        href: "",
+        title: pgDate.toLocaleString('pt-BR', options),
+        time: state.paginationDate.news
+      }
+      console.log('************************', dateRow)
       return {
         ...state,
         news: {
           columns: [ ...state.news.columns, ...action.nCols ],
           rows: [ ...state.news.rows, ...action.nRows ],
-          raw: [ ...state.news.raw, ...action.raw ]
+          raw: [ ...state.news.raw, dateRow, ...action.raw ]
         }
       }
     case 'ADD_PARSED_INSTA_POSTS':

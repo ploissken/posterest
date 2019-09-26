@@ -5,7 +5,8 @@ import { connect } from 'react-redux'
 
 const rightAligned = {
   'textAlign': 'right',
-  'paddingRight' : '10px'
+  'paddingRight' : '10px',
+  'color': '#000'
 }
 
 class ProfileGrid extends React.Component {
@@ -56,7 +57,7 @@ class ProfileGrid extends React.Component {
             <Grid.Row>
               <Grid.Column></Grid.Column>
               <Grid.Column>
-                <Segment padded>
+                <Segment padded inverted={this.props.settings.darkmode}>
                   <h3> Welcome {this.props.login.user.social_name || this.props.login.user.username}!</h3>
                   <Grid padded>
                     <Grid.Row>

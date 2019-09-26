@@ -35,9 +35,9 @@ class App extends Component {
 
   render() {
     return (
-      <Segment basic inverted={this.props.settings.darkmode}>
+      <Segment basic inverted={this.props.settings.darkmode} className="main-container">
         <Noty />
-        <Router />
+        <Router/>
       </Segment>
     )
   }

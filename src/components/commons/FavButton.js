@@ -41,7 +41,7 @@ class FavButton extends React.Component {
   favIcon() {
     return this.props.login.user
       ? (this.state.loading
-        ? 'spinner'
+        ? 'star'
         : this.props.favorites.ids.find(e => e.nid === this.props.postID)
           ? 'star'
           : 'star outline')
@@ -54,8 +54,8 @@ class FavButton extends React.Component {
         return (
           <Segment textAlign='right' basic style={{ 'maxWidth': '50px' }}>
             <Icon
-              color="yellow"
               loading={this.state.loading}
+              size="large"
               name={this.favIcon()}
               onClick={() => this.saveFav(this.props.login.user, this.props.postID)}
             />

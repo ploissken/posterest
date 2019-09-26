@@ -72,9 +72,9 @@ class HeaderMenu extends Component {
         <Menu.Menu position='right'>
 
           <div className="item">
-            <Link to="/minimal">
+            <Link to="/settings">
               <Label color='gray' horizontal>
-                 try minimal beta (; 
+                 try minimal beta (;
               </Label>
              </Link>
           </div>

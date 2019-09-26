@@ -1,6 +1,7 @@
 const initialSettings = {
   darkmode: true,
-  listview: false
+  listview: false,
+  minimal: true
 }
 
 const settingsReducer = (state = initialSettings, action) => {
@@ -10,7 +11,8 @@ const settingsReducer = (state = initialSettings, action) => {
       return {
         ...state,
         darkmode: action.prefs.darkmode,
-        listview: action.prefs.listview
+        listview: action.prefs.listview,
+        minimal: action.prefs.minimal
       }
     case 'CHANGE_DARK_MODE':
       console.log('settings change_dark_theme')
@@ -23,6 +25,12 @@ const settingsReducer = (state = initialSettings, action) => {
       return {
         ...state,
         listview: !state.listview
+      }
+    case 'CHANGE_MINIMAL_MODE':
+      console.log('settings change_theme')
+      return {
+        ...state,
+        minimal: !state.minimal
       }
     case 'USER_LOGOUT':
       console.log('settings user_logout')
