@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Router from './components/Router'
+import ResponsiveGrid from './ResponsiveGrid'
 import { Segment } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import Noty from 'notifier'
@@ -37,7 +37,7 @@ class App extends Component {
     return (
       <Segment basic inverted={this.props.settings.darkmode} className="main-container">
         <Noty />
-        <Router/>
+        <ResponsiveGrid />
       </Segment>
     )
   }

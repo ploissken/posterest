@@ -5,11 +5,11 @@ body {
   font-family: 'PT Serif', serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
 }
 
-.segment {
-  font-family: 'PT Serif', serif;
+.ui.items>.item>.content>.header,
+.segment, .item {
+  font-family: 'PT Serif', serif!important;
 }
 
 #root {
@@ -81,6 +81,14 @@ a {
 
 .minimal.news.header {
   font-weight: bolder;
+}
+.row.mobile.only .minimal.news.row {
+  font-size: 1.2rem;
+  min-height: 75px;
+}
+.row.mobile.only .favorite-field {
+  width:40px!important;
+  border: 3px solid yellow;
 }
 .inverted .large.star {
   color: #ebd936;

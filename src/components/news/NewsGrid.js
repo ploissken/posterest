@@ -24,7 +24,10 @@ class NewsGrid extends React.Component {
       data.forEach(post => {
         let postCard = <Card data={post}/>
         cols.push(<Grid.Column key={post._id} children={postCard}/>)
-        rows.push(<Grid.Row style={{ 'padding': '0' }} key={post._id}><Grid.Column key={post._id} children={postCard}/></Grid.Row>)
+        rows.push(
+          <Grid.Row style={{ 'padding': '0' }} key={post._id}>
+            <Grid.Column key={post._id} children={postCard}/>
+          </Grid.Row>)
       })
       resolve({ columns: cols, rows: rows })
     })
@@ -86,12 +89,11 @@ class NewsGrid extends React.Component {
   }
 
   render() {
-    console.log('rendering News')
     if (!this.props.dataset.news.columns.length) {
-      console.log('rendering without data')
+      // console.log('rendering without data')
       return(<Segment style={loadingStyle} basic color="brown" size="massive" loading />)
     } else {
-      console.log('rendering with data')
+      // console.log('rendering with data')
       if(this.props.settings.listview) {
         return (
           <Segment basic>

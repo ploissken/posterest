@@ -2,7 +2,7 @@ import React from 'react';
 import FavButton from 'components/commons/FavButton'
 import LoadMoreNews from 'components/commons/LoadMoreNews'
 // import SimpleTable from 'components/commons/SimpleTable'
-import { Table, Segment } from 'semantic-ui-react'
+import { Item, Segment } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import api from 'api'
 
@@ -26,32 +26,30 @@ class MinimalGrid extends React.Component {
 
       const neo = this.props.dataset.news.raw.map(post => {
         const favButton = post.href === ""
-        ? ( <Table.Cell></Table.Cell> )
-        : ( <Table.Cell>
-              <FavButton compact="true" postID={post._id} />
-            </Table.Cell>)
+          ? ( <span></span> )
+          : ( <FavButton compact="true" postID={post._id} /> )
 
         const title = post.href === ""
-        ? ( <Table.Cell className="minimal news header"> {post.title} </Table.Cell> )
-        : ( <Table.Cell>
-              {post.title} | <a href={post.href}>{getSource(post.href)}</a>
-            </Table.Cell>)
+          ? ( <Item.Description className="minimal news header"> {post.title} </Item.Description> )
+          : ( <Item.Description>
+                <a href={post.href}> {post.title} </a> | {getSource(post.href)}
+              </Item.Description> )
 
         return (
-          <Table.Row className="minimal news row" key={post._id}>
+          <Item className="minimal news row" key={post._id}>
             { favButton }
-            { title }
-          </Table.Row>
+            <Item.Content>
+              { title }
+            </Item.Content>
+          </Item>
         )
       })
 
       return (
-        <Segment basic style={{ 'overflow': 'auto', 'height': '95vh' }}>
-          <Table>
-            <Table.Body compact="true" basic="very">
-              {neo}
-            </Table.Body>
-          </Table>
+        <Segment basic style={{ 'overflow': 'auto', 'height': '95vh', 'border': '1px solid red;' }}>
+          <Item.Group unstackable>
+            {neo}
+          </Item.Group>
           <LoadMoreNews />
         </Segment>
       )

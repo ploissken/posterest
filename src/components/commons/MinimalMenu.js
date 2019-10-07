@@ -2,7 +2,7 @@ import React from 'react';
 import SimpleTable from 'components/commons/SimpleTable'
 import { Link } from 'react-router-dom'
 
-import { Segment } from 'semantic-ui-react'
+import { Segment, Grid } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 
 const rightAligned = {
@@ -30,7 +30,11 @@ class MinimalMenu extends React.Component {
 
       return (
         <Segment basic style={{ 'height': '100vh' }}>
-          <SimpleTable rows={pseudoMenu}/>
+          <Grid>
+            <Grid.Column>
+              <SimpleTable rows={pseudoMenu}/>
+            </Grid.Column>
+          </Grid>
         </Segment>
       )
   }

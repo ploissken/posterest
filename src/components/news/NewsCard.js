@@ -33,7 +33,8 @@ const iteractions = {
 }
 
 const nomargin = {
-  'marginBottom': '0'
+  'marginBottom': '0',
+  'border': '3px dashed yellow'
 }
 
 const invSegment = {
