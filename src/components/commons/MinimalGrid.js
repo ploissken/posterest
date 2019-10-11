@@ -2,7 +2,7 @@ import React from 'react';
 import FavButton from 'components/commons/FavButton'
 import LoadMoreNews from 'components/commons/LoadMoreNews'
 // import SimpleTable from 'components/commons/SimpleTable'
-import { Item, Segment } from 'semantic-ui-react'
+import { Grid, Segment } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import api from 'api'
 
@@ -25,31 +25,29 @@ class MinimalGrid extends React.Component {
     render() {
 
       const neo = this.props.dataset.news.raw.map(post => {
-        const favButton = post.href === ""
-          ? ( <span></span> )
-          : ( <FavButton compact="true" postID={post._id} /> )
+        const favButton = post.href === "DATE-MARKER"
+          ? ( <Grid.Column width={1}></Grid.Column> )
+          : ( <Grid.Column width={1}><FavButton compact="true" postID={post._id} /></Grid.Column> )
 
-        const title = post.href === ""
-          ? ( <Item.Description className="minimal news header"> {post.title} </Item.Description> )
-          : ( <Item.Description>
+        const title = post.href === "DATE-MARKER"
+          ? ( <Grid.Column width={15} className="minimal news header"> {post.title} </Grid.Column> )
+          : ( <Grid.Column width={15}>
                 <a href={post.href}> {post.title} </a> | {getSource(post.href)}
-              </Item.Description> )
+              </Grid.Column> )
 
         return (
-          <Item className="minimal news row" key={post._id}>
+          <Grid.Row className="" key={post._id}>
             { favButton }
-            <Item.Content>
-              { title }
-            </Item.Content>
-          </Item>
+            { title }
+          </Grid.Row>
         )
       })
 
       return (
         <Segment basic style={{ 'overflow': 'auto', 'height': '95vh', 'border': '1px solid red;' }}>
-          <Item.Group unstackable>
+          <Grid inverted={this.props.settings.darkmode}>
             {neo}
-          </Item.Group>
+          </Grid>
           <LoadMoreNews />
         </Segment>
       )
@@ -58,6 +56,7 @@ class MinimalGrid extends React.Component {
 const mapStateToProps = (state) => {
   return {
     dataset: state.dataset,
+    settings: state.settings
   }
 }
 

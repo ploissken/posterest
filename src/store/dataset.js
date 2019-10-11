@@ -28,7 +28,7 @@ const postReducer = (state = initialSettings, action) => {
       }
       const dateRow = {
         _id: pgDate,
-        href: "",
+        href: "DATE-MARKER",
         title: pgDate.toLocaleString('pt-BR', options),
         time: state.paginationDate.news
       }

@@ -52,7 +52,7 @@ class FavButton extends React.Component {
     if(this.props.postID && this.props.login.user) {
       if(this.props.compact) {
         return (
-          <Segment textAlign='right' basic style={{ 'maxWidth': '50px' }}>
+          <Segment textAlign='right' basic style={{ 'padding': '0' }}>
             <Icon
               loading={this.state.loading}
               size="large"

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, Segment, Icon, Checkbox, Button } from 'semantic-ui-react'
+import { Grid, Segment, Checkbox } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import api from 'api'
 
@@ -82,26 +82,11 @@ class SettingsGrid extends React.Component {
                     Display high contrast text against a dark background: saves energy and its pretty cool
                     <Grid.Row>
                       <Checkbox toggle
-                        label="Minimal theme"
+                        label="Left menu"
                         onChange={this.themeUpdate}
                         checked={this.props.settings.minimal}/>
                     </Grid.Row>
-                      Changes menu and display minimal news information
-                  <Grid.Row>
-                    <h4> News Grid </h4>
-                  </Grid.Row>
-                  <Grid.Row>
-                    <Button
-                      inverted={this.props.settings.darkmode}
-                      onClick={this.viewModeUpdate}
-                      basic>
-                      <Icon
-                        name={this.props.settings.listview ? 'list' : 'th'}
-                      /> {this.props.settings.listview ? 'Displaying as a list' : 'Displaying as cards'}
-                    </Button>
-                  </Grid.Row>
-                  * unavailable for minimal theme<br/>
-                  You can change the way your News Feed is displayed: headlines list or a masonry cards view
+                    Changes menu position
                 </Grid>
               </Segment>
             </Grid.Column>

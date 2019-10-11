@@ -18,7 +18,7 @@ class Router extends Component {
         <div>
           <Route path="/" component={null} />
           <Route path="/instagram" component={InstaGrid} />
-          <Route path="/news" component={NewsGrid} />
+          <Route path="/news" component={MinimalGrid} />
           <Route path="/favorites" component={FavsGrid} />
           <Route path="/profile" component={ProfileGrid} />
           <Route path="/login" component={SigninGrid} />

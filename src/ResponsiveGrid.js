@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { BrowserRouter, Route } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 
 import Router from 'components/Router'
 import { Grid } from 'semantic-ui-react'
@@ -14,45 +14,55 @@ class ResponsiveGrid extends Component {
     const layout = []
     if(this.props.settings.minimal) {
       layout.push(
-        <Grid.Row className="computer tablet only">
-          <Grid.Column width={3}>
-            <MinimalMenu />
-          </Grid.Column>
-          <Grid.Column width={13}>
-            <Router />
-          </Grid.Column>
-        </Grid.Row>
+        <Grid>
+          <Grid.Row className="mobile only" key="minimal-mobile-header">
+            <HeaderMenu />
+          </Grid.Row>
+          <Grid.Row key="minimal-grid">
+
+            <Grid.Column className="computer tablet only" computer={3} tablet={3}>
+              <MinimalMenu />
+            </Grid.Column>
+
+            <Grid.Column className="mobile only" width={1}/>
+
+            <Grid.Column mobile={16} tablet={13} computer={13}>
+              <Router />
+            </Grid.Column>
+
+            <Grid.Column className="mobile only" width={1}/>
+
+          </Grid.Row>
+        </Grid>
       )
-      layout.push(
-        <Grid.Row className="mobile only">
-          <HeaderMenu />
-        </Grid.Row>
-      )
-      layout.push(
-        <Grid.Row className="mobile only">
-          <Router />
-        </Grid.Row>
-      )
+      // layout.push(
+      //   <Grid.Row className="mobile only" key="minimal-mobile-header">
+      //     <HeaderMenu />
+      //   </Grid.Row>
+      // )
+      // layout.push(
+      //   <Grid.Row className="mobile only" key="minimal-mobile-grid">
+      //     <Router />
+      //   </Grid.Row>
+      // )
     // top-header ugly layout
     } else {
       layout.push(
-        <Grid.Row>
-          <HeaderMenu />
-        </Grid.Row>
-      )
-      layout.push(
-        <Grid.Row>
-          <Router />
-        </Grid.Row>
+        <Grid>
+          <Grid.Row key="ugly-header">
+            <HeaderMenu />
+          </Grid.Row>
+          <Grid.Row key="ugly-grid">
+            <Router />
+          </Grid.Row>
+        </Grid>
       )
     }
 
     return (
-      <Grid>
-        <BrowserRouter>
-          { layout }
-        </BrowserRouter>
-      </Grid>
+      <BrowserRouter>
+        { layout }
+      </BrowserRouter>
     )
   }
 }

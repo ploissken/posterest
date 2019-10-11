@@ -18,10 +18,13 @@ body {
 
 .main-container .inverted,
 .segment .inverted {
-  background-color: #333!important;
+  color: #fff!important;
 }
 a {
   color: #000;
+}
+a:hover {
+  color: #8f00af;
 }
 .inverted a {
   color: #f44!important;
