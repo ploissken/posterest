@@ -11,7 +11,7 @@ import api from 'api'
 // ]
 
 const trigger = (
-    <Icon name="user circle"/>
+    <Icon name="bars"/>
 )
 
 class HeaderMenu extends Component {
@@ -29,6 +29,36 @@ class HeaderMenu extends Component {
 
   loginButton = (userLogged => {
     console.log('loginbutt', userLogged)
+    const news = (
+      <div className="item">
+        <Link to="/news"> <Icon name='bullhorn' /> News </Link>
+      </div>
+    )
+    const insta = (
+      <div className="item">
+        <Link to="/instagram"> <Icon name='instagram' /> Instagram </Link>
+      </div>
+    )
+    const favs = (
+      <div className="item">
+        <Link to="/favorites"> <Icon name='star' /> Favorites </Link>
+      </div>
+    )
+    const settings = (
+      <div className="item">
+        <Link to="/settings"> <Icon name='cog' /> Settings </Link>
+      </div>
+    )
+
+    const loginButton = userLogged
+      ? (<button className="item" onClick={this.dispatchLogout}>
+          <Icon name='sign out' /> Sign-out
+        </button>)
+      : (<div className="item">
+          <Link to="/login"> <Icon name='user' /> Login </Link>
+        </div>)
+
+
     if(userLogged) {
       return (
         <Dropdown
@@ -37,22 +67,32 @@ class HeaderMenu extends Component {
           floating
           icon={null} >
           <Dropdown.Menu className={this.props.settings.darkmode ? 'inverted' : ''}>
-            <Dropdown.Header icon='user' content={this.props.login.user.social_name || this.props.login.user.username} />
+            <Dropdown.Header icon='user circle' content={this.props.login.user.social_name || this.props.login.user.username} />
             <Dropdown.Divider />
-            <div className="item">
-              <Link to="/favorites"> <Icon name='star' /> Favorites </Link>
-            </div>
-            <div className="item">
-              <Link to="/settings"> <Icon name='cog' /> Settings </Link>
-            </div>
-            <button className="item" onClick={this.dispatchLogout}>
-              <Icon name='sign out' /> Sign-out
-            </button>
+            { news }
+            { insta }
+            { favs }
+            { settings }
+            <Dropdown.Divider />
+            { loginButton }
           </Dropdown.Menu>
         </Dropdown>
       )
     } else {
-      return <Link to="/login"> <Icon name='user' /> Login </Link>
+      return (
+        <Dropdown
+          trigger={trigger}
+          onChange={this.handleChange}
+          floating
+          icon={null} >
+          <Dropdown.Menu className={this.props.settings.darkmode ? 'inverted' : ''}>
+            { news }
+            { insta }
+            <Dropdown.Divider />
+            { loginButton }
+          </Dropdown.Menu>
+        </Dropdown>
+      )
     }
   })
 
@@ -66,32 +106,11 @@ class HeaderMenu extends Component {
   render() {
     return (
       <Menu borderless fluid fixed="top"
-        inverted={this.props.settings.darkmode}
-        color={this.props.settings.darkmode ? 'grey' : 'black'}>
+        className="main-menu">
+        <div className="item">
+          {this.loginButton(this.props.login.user)}
+        </div>
         <Menu.Item> posterest </Menu.Item>
-        <Menu.Menu position='right'>
-
-          <div className="item">
-            <Link to="/settings">
-              <Label color='gray' horizontal>
-                 try minimal beta (;
-              </Label>
-             </Link>
-          </div>
-
-          <div className="item">
-            <Link to="/instagram"> <Icon name='instagram' /> Instagram </Link>
-          </div>
-
-          <div className="item">
-            <Link to="/news"> <Icon name='bullhorn' /> News </Link>
-          </div>
-
-          <div className="item">
-            {this.loginButton(this.props.login.user)}
-          </div>
-
-        </Menu.Menu>
       </Menu>
     )
   }
