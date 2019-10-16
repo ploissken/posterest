@@ -97,11 +97,11 @@ class SigninGrid extends React.Component {
     } else {
       return (
         <Segment basic style={{'height': '100vh'}}>
-          <Grid padded columns={3}>
+          <Grid padded>
             <Grid.Row>
-              <Grid.Column>
+              <Grid.Column computer={4} mobile={1}>
               </Grid.Column>
-              <Grid.Column>
+              <Grid.Column computer={8} mobile={14}>
                 <Segment padded>
                   <h3> Login to post e-rest </h3>
                   <Form onSubmit={this.handleSubmit}>
@@ -140,7 +140,7 @@ class SigninGrid extends React.Component {
                   </Segment>
                 </Segment>
               </Grid.Column>
-              <Grid.Column>
+              <Grid.Column computer={4} mobile={1}>
               </Grid.Column>
             </Grid.Row>
           </Grid>
