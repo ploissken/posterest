@@ -86,7 +86,7 @@ class SettingsGrid extends React.Component {
                         onChange={this.themeUpdate}
                         checked={this.props.settings.minimal}/>
                     </Grid.Row>
-                    Changes menu position
+                    Changes menu position (computer only)
                 </Grid>
               </Segment>
             </Grid.Column>

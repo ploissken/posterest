@@ -106,6 +106,7 @@ class HeaderMenu extends Component {
   render() {
     return (
       <Menu borderless fluid fixed="top"
+        inverted={this.props.settings.darkmode}
         className="main-menu">
         <div className="item">
           {this.loginButton(this.props.login.user)}

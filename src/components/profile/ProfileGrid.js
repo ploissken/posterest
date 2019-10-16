@@ -55,8 +55,8 @@ class ProfileGrid extends React.Component {
         <Segment basic style={{'height': '100vh'}}>
           <Grid padded columns={3}>
             <Grid.Row>
-              <Grid.Column></Grid.Column>
-              <Grid.Column>
+              <Grid.Column computer={4} mobile={1}></Grid.Column>
+              <Grid.Column computer={8} mobile={14}>
                 <Segment padded inverted={this.props.settings.darkmode}>
                   <h3> Welcome {this.props.login.user.social_name || this.props.login.user.username}!</h3>
                   <Grid padded>
@@ -76,7 +76,7 @@ class ProfileGrid extends React.Component {
                   </Grid>
                 </Segment>
               </Grid.Column>
-              <Grid.Column></Grid.Column>
+              <Grid.Column computer={4} mobile={1}></Grid.Column>
             </Grid.Row>
           </Grid>
         </Segment>
