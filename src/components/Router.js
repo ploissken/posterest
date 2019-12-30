@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { BrowserRouter, Route } from 'react-router-dom'
-import NewsGrid from 'components/news/NewsGrid'
+import { Route } from 'react-router-dom'
+// import NewsGrid from 'components/news/NewsGrid'
 import SigninGrid from 'components/signin/SigninGrid'
 import SignupGrid from 'components/signin/SignupGrid'
 import InstaGrid from 'components/instagram/InstaGrid'

@@ -4,7 +4,7 @@ import LoadMoreNews from 'components/commons/LoadMoreNews'
 // import SimpleTable from 'components/commons/SimpleTable'
 import { Grid, Segment } from 'semantic-ui-react'
 import { connect } from 'react-redux'
-import api from 'api'
+// import api from 'api'
 
 function getSource(url) {
   try {

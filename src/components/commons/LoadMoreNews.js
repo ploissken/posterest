@@ -4,10 +4,6 @@ import { Grid, Segment, Button } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import api from 'api'
 
-const loadingStyle = {
-  height: '100vh'
-}
-
 class LoadMoreNews extends React.Component {
   constructor(props) {
     super(props)
