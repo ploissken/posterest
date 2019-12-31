@@ -18,9 +18,9 @@ const initialSettings = {
 const postReducer = (state = initialSettings, action) => {
   switch(action.type) {
     case 'ADD_PARSED_POSTS':
-      console.log('dataset add_posts')
+      // console.log('dataset add_posts')
       const pgDate = new Date(state.paginationDate.news)
-      console.log(`pgDate is ${pgDate}`)
+      // console.log(`pgDate is ${pgDate}`)
 
       const options = {
         day: 'numeric',
@@ -32,7 +32,7 @@ const postReducer = (state = initialSettings, action) => {
         title: pgDate.toLocaleString('pt-BR', options),
         time: state.paginationDate.news
       }
-      console.log('************************', dateRow)
+      // console.log('************************', dateRow)
       return {
         ...state,
         news: {
@@ -42,7 +42,7 @@ const postReducer = (state = initialSettings, action) => {
         }
       }
     case 'ADD_PARSED_INSTA_POSTS':
-      console.log('ADD_PARSED_INSTAS')
+      // console.log('ADD_PARSED_INSTAS')
       return {
         ...state,
         instagram: {
@@ -51,7 +51,7 @@ const postReducer = (state = initialSettings, action) => {
         }
       }
     case 'NEXT_PG_NEWS_DATE':
-      console.log('NEXT_PG_NEWS_DATE')
+      // console.log('NEXT_PG_NEWS_DATE')
       return {
         ...state,
         paginationDate: {
@@ -60,7 +60,7 @@ const postReducer = (state = initialSettings, action) => {
         }
       }
     case 'NEXT_PG_INSTA_DATE':
-      console.log('NEXT_PG_INSTA_DATE')
+      // console.log('NEXT_PG_INSTA_DATE')
       return {
         ...state,
         paginationDate: {
@@ -69,7 +69,7 @@ const postReducer = (state = initialSettings, action) => {
         }
       }
     default:
-      console.log('dataset default')
+      // console.log('dataset default')
       return state
   }
 }

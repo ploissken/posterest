@@ -28,7 +28,7 @@ class SigninGrid extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    console.log('here I go')
+    // console.log('here I go')
     let credentials = {
       body: JSON.stringify({
         username: this.state.uname,
@@ -53,7 +53,7 @@ class SigninGrid extends React.Component {
         fav: data.favorites
       })
     }).catch(oops => {
-      console.log('catcherrr', oops)
+      // console.log('catcherrr', oops)
       Noty().error(oops.message)
     })
   }
@@ -69,8 +69,8 @@ class SigninGrid extends React.Component {
   componentDidMount() {
     if(!this.props.login.user || !this.props.login.count) {
       api('/profile').get().then(data => {
-        console.log('componentDidMount @ SignInGrid')
-        console.log(data)
+        // console.log('componentDidMount @ SignInGrid')
+        // console.log(data)
         this.props.dispatch({
           type:'SET_COUNT',
           count: data.count
@@ -84,13 +84,13 @@ class SigninGrid extends React.Component {
           fav: data.favorites
         })
       }).catch(oops => {
-        console.log('oops', oops)
+        // console.log('oops', oops)
       })
     }
   }
 
   render() {
-    console.log('rendering SignInG')
+    // console.log('rendering SignInG')
     if(this.props.login.user){
       this.props.history.push("/profile")
       return null

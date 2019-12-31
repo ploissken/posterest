@@ -26,7 +26,7 @@ class SigninGrid extends React.Component {
       })
     }
     api('/signup').post(credentials).then((data) => {
-      console.log('/signup data', data)
+      // console.log('/signup data', data)
       this.props.dispatch({
         type:'USER_LOGIN',
         user: data

@@ -14,7 +14,7 @@ function getSource(url) {
       .match(/(.*?)\//)
     return clear[0].replace('/', '')
   } catch (e) {
-    console.log('error', url)
+    // console.log('error', url)
     return 'error :('
   }
 }

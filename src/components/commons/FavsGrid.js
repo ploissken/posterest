@@ -59,28 +59,28 @@ class FavsGrid extends React.Component {
       rows.push(<Grid.Column key={post._id} children={postCard}/>)
       // rows.push(<Grid.Row style={{ 'padding': '0' }} key={post._id}><Grid.Column key={post._id} children={postCard}/></Grid.Row>)
     })
-    console.log('news', data[0])
+    // console.log('news', data[0])
     this.setState({ news: { rows: rows } })
   }
 
   componentDidMount() {
     if(this.props.login.user) {
       api('/load-favs').get().then((data) => {
-        console.log('UIA')
-        console.log(data)
+        // console.log('UIA')
+        // console.log(data)
         this.createCards(data)
         this.props.dispatch({
           type:'SET_FETCHED_FAVS',
           fetched: data
         })
       }).catch(oops => {
-        console.log('catcherrr', oops)
+        // console.log('catcherrr', oops)
       })
     }
   }
 
   render() {
-    console.log('rendering favs')
+    // console.log('rendering favs')
     if(!this.props.login.user) {
       this.props.history.push("/login")
       return (

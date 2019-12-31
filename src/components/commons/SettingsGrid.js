@@ -11,15 +11,15 @@ class SettingsGrid extends React.Component {
         minimal: !this.props.settings.minimal
       })
     }
-    console.log('sending ', param)
+    // console.log('sending ', param)
     api('/toggle-minimal').post(param).then(data => {
-      console.log('toggle-minimal @ SettingsGrid')
-      console.log(data)
+      // console.log('toggle-minimal @ SettingsGrid')
+      // console.log(data)
       this.props.dispatch({
         type:'CHANGE_MINIMAL_MODE'
       })
     }).catch(oops => {
-      console.log('oops', oops)
+      // console.log('oops', oops)
     })
   })
 
@@ -31,13 +31,13 @@ class SettingsGrid extends React.Component {
       })
     }
     api('/toggle-darkmode').post(param).then(data => {
-      console.log('toggle-darkmode @ SettingsGrid')
-      console.log(data)
+      // console.log('toggle-darkmode @ SettingsGrid')
+      // console.log(data)
       this.props.dispatch({
         type:'CHANGE_DARK_MODE'
       })
     }).catch(oops => {
-      console.log('oops', oops)
+      // console.log('oops', oops)
     })
   })
 
@@ -49,18 +49,18 @@ class SettingsGrid extends React.Component {
       })
     }
     api('/toggle-viewmode').post(param).then(data => {
-      console.log('toggle-viewmode @ SettingsGrid')
-      console.log(data)
+      // console.log('toggle-viewmode @ SettingsGrid')
+      // console.log(data)
       this.props.dispatch({
         type:'CHANGE_VIEW_MODE'
       })
     }).catch(oops => {
-      console.log('oops', oops)
+      // console.log('oops', oops)
     })
   })
 
   render() {
-    console.log('rendering SignInG')
+    // console.log('rendering SignInG')
     return (
       <Segment basic style={{'height': '100vh'}} >
         <Grid padded>

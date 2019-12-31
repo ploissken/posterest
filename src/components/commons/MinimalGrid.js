@@ -17,7 +17,7 @@ function getSource(url) {
       .match(/(.*?)\//)
     return clear[0].replace('/', '')
   } catch (e) {
-    console.log('error', url)
+    // console.log('error', url)
     return ''
   }
 }
@@ -44,7 +44,7 @@ class MinimalGrid extends React.Component {
       })
 
       return (
-        <Segment basic style={{ 'overflow': 'auto', 'height': '95vh', 'border': '1px solid red;' }}>
+        <Segment basic style={{ 'overflow': 'auto', 'height': '95vh' }}>
           <Grid inverted={this.props.settings.darkmode}>
             {neo}
           </Grid>

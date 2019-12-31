@@ -43,7 +43,7 @@ class NewsGrid extends React.Component {
 
     api('/load-more-news').post(info).then((data) => {
       this.parseItems(data).then(parsed => {
-        console.log('load-more-news', parsed)
+        // console.log('load-more-news', parsed)
         let date = new Date(this.props.dataset.paginationDate.news.getTime())
         date.setDate(date.getDate() - 1)
         this.props.dispatch({
@@ -58,7 +58,7 @@ class NewsGrid extends React.Component {
         })
         this.setState({ loadingMore: false })
       }).catch(err => {
-        console.log(err)
+        // console.log(err)
       })
     })
   }
@@ -73,7 +73,7 @@ class NewsGrid extends React.Component {
 
       api('/news').get().then((data) => {
         this.parseItems(data).then(parsed => {
-          console.log('parsed', parsed)
+          // console.log('parsed', parsed)
           this.props.dispatch({
             type:'ADD_PARSED_POSTS',
             raw: data,
@@ -82,7 +82,7 @@ class NewsGrid extends React.Component {
           })
 
         }).catch(err => {
-          console.log(err)
+          // console.log(err)
         })
       })
     }

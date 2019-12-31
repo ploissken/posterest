@@ -9,8 +9,8 @@ class App extends Component {
   componentDidMount() {
     if(!this.props.login.user || !this.props.login.count) {
       api('/profile').get().then(data => {
-        console.log('componentDidMount @ SignInGrid')
-        console.log(data)
+        // console.log('componentDidMount @ SignInGrid')
+        // console.log(data)
         this.props.dispatch({
           type:'SET_SETTINGS',
           prefs: data.prefs
@@ -28,7 +28,7 @@ class App extends Component {
           fav: data.favorites
         })
       }).catch(oops => {
-        console.log('oops', oops)
+        // console.log('oops', oops)
       })
     }
   }
@@ -44,7 +44,7 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log('hi, my name is state', state)
+  // console.log('hi, my name is state', state)
   return {
     login: state.login,
     settings: state.settings

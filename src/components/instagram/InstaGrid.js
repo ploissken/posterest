@@ -39,7 +39,7 @@ class InstaGrid extends React.Component {
 
     api('/load-more-insta').post(info).then((data) => {
       this.parseItems(data).then(parsed => {
-        console.log('load-more-insta', parsed)
+        // console.log('load-more-insta', parsed)
         let date = new Date(this.props.dataset.paginationDate.instagram.getTime())
         date.setDate(date.getDate() - 1)
         this.props.dispatch({
@@ -53,13 +53,13 @@ class InstaGrid extends React.Component {
         })
         this.setState({ loadingMore: false })
       }).catch(err => {
-        console.log(err)
+        // console.log(err)
       })
     })
   }
 
   componentDidMount() {
-    console.log('mounting', this.props.dataset.paginationDate)
+    // console.log('mounting', this.props.dataset.paginationDate)
     if (!this.props.dataset.paginationDate.instagram) {
       let date = new Date()
       date.setDate(date.getDate() - 1)
@@ -70,26 +70,26 @@ class InstaGrid extends React.Component {
 
       api('/instagram').get().then((data) => {
         this.parseItems(data).then(parsed => {
-          console.log('parsed', parsed)
+          // console.log('parsed', parsed)
           this.props.dispatch({
             type:'ADD_PARSED_INSTA_POSTS',
             nRows: parsed.rows,
             nCols: parsed.columns
           })
         }).catch(err => {
-          console.log(err)
+          // console.log(err)
         })
       })
     }
   }
 
   render() {
-    console.log('rendering InstaGrid')
+    // console.log('rendering InstaGrid')
     if (!this.props.dataset.instagram.columns.length) {
-      console.log('rendering without data')
+      // console.log('rendering without data')
       return(<Segment style={loadingStyle} basic color="brown" size="massive" loading />)
     } else {
-      console.log('rendering with data')
+      // console.log('rendering with data')
       return (
         <Segment basic>
           <Grid stackable padded columns={4}>

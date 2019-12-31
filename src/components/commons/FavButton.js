@@ -13,7 +13,7 @@ class FavButton extends React.Component {
 
   saveFav(user, itemID) {
     if(user && user._id) {
-      console.log(`user id ${user._id} favs ${itemID}`)
+      // console.log(`user id ${user._id} favs ${itemID}`)
       this.setState({ loading: true })
       let info = {
         body: JSON.stringify({
@@ -34,7 +34,9 @@ class FavButton extends React.Component {
           })
         }
         this.setState({ loading: false })
-      }).catch(err => console.log(err))
+      }).catch(err => {
+        // console.log(err)
+      })
     }
   }
 

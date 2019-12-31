@@ -35,16 +35,6 @@ class ResponsiveGrid extends Component {
           </Grid.Row>
         </Grid>
       )
-      // layout.push(
-      //   <Grid.Row className="mobile only" key="minimal-mobile-header">
-      //     <HeaderMenu />
-      //   </Grid.Row>
-      // )
-      // layout.push(
-      //   <Grid.Row className="mobile only" key="minimal-mobile-grid">
-      //     <Router />
-      //   </Grid.Row>
-      // )
     // top-header ugly layout
     } else {
       layout.push(

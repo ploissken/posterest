@@ -17,18 +17,18 @@ const trigger = (
 class HeaderMenu extends Component {
   dispatchLogout = (() => {
     api('/logout').get().then((data) => {
-      console.log('UIA')
-      console.log(data)
+      // console.log('UIA')
+      // console.log(data)
       this.props.dispatch({
         type:'USER_LOGOUT'
       })
     }).catch(oops => {
-      console.log('catcherrr', oops)
+      // console.log('catcherrr', oops)
     })
   })
 
   loginButton = (userLogged => {
-    console.log('loginbutt', userLogged)
+    // console.log('loginbutt', userLogged)
     const news = (
       <div className="item">
         <Link to="/news"> <Icon name='bullhorn' /> News </Link>
@@ -63,7 +63,7 @@ class HeaderMenu extends Component {
       return (
         <Dropdown
           trigger={trigger}
-          onChange={this.handleChange}
+          // onChange={this.handleChange}
           floating
           icon={null} >
           <Dropdown.Menu className={this.props.settings.darkmode ? 'inverted' : ''}>
@@ -82,7 +82,7 @@ class HeaderMenu extends Component {
       return (
         <Dropdown
           trigger={trigger}
-          onChange={this.handleChange}
+          // onChange={this.handleChange}
           floating
           icon={null} >
           <Dropdown.Menu className={this.props.settings.darkmode ? 'inverted' : ''}>
@@ -96,12 +96,12 @@ class HeaderMenu extends Component {
     }
   })
 
-  handleChange = (e, { value }) => {
-    if (value) {
-
-    }
-    console.log('handling change', value)
-  }
+  // handleChange = (e, { value }) => {
+  //   if (value) {
+  //
+  //   }
+  //   console.log('handling change', value)
+  // }
 
   render() {
     return (

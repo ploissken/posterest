@@ -11,7 +11,7 @@ const rightAligned = {
 
 class ProfileGrid extends React.Component {
   render() {
-    console.log('rendering ProfileGrid')
+    // console.log('rendering ProfileGrid')
     if(!this.props.login.user) {
       this.props.history.push("/login")
       return (

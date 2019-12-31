@@ -7,7 +7,7 @@ export default class SimpleTable extends React.Component {
       const rowCells = row.columns.map(column => {
         return (<Table.Cell style={column.style} key={column.value}>{column.value}</Table.Cell>)
       })
-      console.log(row._id)
+      // console.log(row._id)
       return(<Table.Row key={row._id}>{rowCells}</Table.Row>)
     })
 

@@ -6,20 +6,20 @@ const initialSettings = {
 const favReducer = (state = initialSettings, action) => {
   switch(action.type) {
     case 'ADD_FAVORITE':
-    console.log('add fav')
+    // console.log('add fav')
       return {
         ...state,
         ids: [ ...state.ids, action.fav ]
       }
     case 'REM_FAVORITE':
-    console.log('rem fav')
+    // console.log('rem fav')
       // return [ ...state ].filter( e => e.nid !== action.fav.nid )
       return {
         ...state,
         ids: [ ...state.ids ].filter( e => e.nid !== action.fav.nid )
       }
     case 'SET_FAVORITE':
-    console.log('set fav')
+    // console.log('set fav')
       // return action.fav
       return {
         ...state,
@@ -31,10 +31,10 @@ const favReducer = (state = initialSettings, action) => {
         fetched: action.fetched
       }
     case 'USER_LOGOUT':
-    console.log('fav user_logout')
+    // console.log('fav user_logout')
       return initialSettings
     default:
-      console.log('fav default')
+      // console.log('fav default')
       return state;
   }
 }
