@@ -1,6 +1,7 @@
 const initialSettings = {
   user: undefined,
-  count: undefined
+  count: undefined,
+  loading: true
 }
 
 const loginReducer = (state = initialSettings, action) => {
@@ -23,6 +24,13 @@ const loginReducer = (state = initialSettings, action) => {
       return {
         ...state,
         count: action.count
+      }
+    case 'LOADING_PROFILE':
+      // console.log('set_count')
+      // console.log('olar count', action.count)
+      return {
+        ...state,
+        loading: action.status
       }
     default:
       // console.log('login_default')

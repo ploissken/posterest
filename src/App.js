@@ -8,6 +8,10 @@ import api from 'api'
 class App extends Component {
   componentDidMount() {
     if(!this.props.login.user || !this.props.login.count) {
+      this.props.dispatch({
+        type:'LOADING_PROFILE',
+        status: true
+      })
       api('/profile').get().then(data => {
         // console.log('componentDidMount @ SignInGrid')
         // console.log(data)
@@ -27,8 +31,15 @@ class App extends Component {
           type:'SET_FAVORITE',
           fav: data.favorites
         })
+        this.props.dispatch({
+          type:'LOADING_PROFILE',
+          status: false
+        })
       }).catch(oops => {
-        // console.log('oops', oops)
+        this.props.dispatch({
+          type:'LOADING_PROFILE',
+          status: false
+        })
       })
     }
   }
