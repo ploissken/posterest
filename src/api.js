@@ -1,8 +1,6 @@
 const API_URL = (process.env.NODE_ENV === 'production')
   ? 'https://pa.txto.com.br'
-  : 'http://localhost'
-
-// console.log('USING API: ' + API_URL + ' (' + process.env.NODE_ENV + ')')
+  : 'http://localhost:9000'
 
 export class PAApi {
   constructor (url) {
@@ -38,7 +36,6 @@ export class PAApi {
   }
 
   request (method, data = {}, otherOptions = {}) {
-    // console.log('uepa', this.url)
     return new Promise(async (resolve, reject) => {
       try {
         fetch(this.getUrl(), {
@@ -52,25 +49,18 @@ export class PAApi {
           ...data,
           ...otherOptions
         }).then(res => {
-          // console.log('then', res)
           res.json().then(d => {
-            // console.log('thenThen', d)
             if(res.status === 200) {
-              // console.log('if', d)
               resolve(d)
             } else {
-              // console.log('else', d)
               reject(d)
             }
-
           })
 
         }).catch(err => {
-          // console.log('catch!')
           reject(err)
         })
       } catch (error) {
-        // console.log('catchCatch!')
         reject(error)
       }
     })

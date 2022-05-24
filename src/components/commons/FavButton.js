@@ -44,7 +44,7 @@ class FavButton extends React.Component {
     return this.props.login.user
       ? (this.state.loading
         ? 'star'
-        : this.props.favorites.ids.find(e => e.nid === this.props.postID)
+        : this.props.favorites.ids.find(e => e.nid + '' === this.props.postID + '')
           ? 'star'
           : 'star outline')
       : ''

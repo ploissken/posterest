@@ -34,11 +34,11 @@ class HeaderMenu extends Component {
         <Link to="/news"> <Icon name='bullhorn' /> News </Link>
       </div>
     )
-    const insta = (
-      <div className="item">
-        <Link to="/instagram"> <Icon name='instagram' /> Instagram </Link>
-      </div>
-    )
+    // const insta = (
+    //   <div className="item">
+    //     <Link to="/instagram"> <Icon name='instagram' /> Instagram </Link>
+    //   </div>
+    // )
     const favs = (
       <div className="item">
         <Link to="/favorites"> <Icon name='star' /> Favorites </Link>
@@ -70,7 +70,6 @@ class HeaderMenu extends Component {
             <Dropdown.Header icon='user circle' content={this.props.login.user.social_name || this.props.login.user.username} />
             <Dropdown.Divider />
             { news }
-            { insta }
             { favs }
             { settings }
             <Dropdown.Divider />
@@ -87,7 +86,6 @@ class HeaderMenu extends Component {
           icon={null} >
           <Dropdown.Menu className={this.props.settings.darkmode ? 'inverted' : ''}>
             { news }
-            { insta }
             <Dropdown.Divider />
             { loginButton }
           </Dropdown.Menu>

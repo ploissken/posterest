@@ -6,7 +6,7 @@ networks:
 
 services:
   posterest:
-    image: node:12-slim
+    image: node:12-slim 
     working_dir: '/home/node/'
     volumes:
       - './:/home/node/:cached'

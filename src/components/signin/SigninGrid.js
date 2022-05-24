@@ -53,7 +53,6 @@ class SigninGrid extends React.Component {
         fav: data.favorites
       })
     }).catch(oops => {
-      // console.log('catcherrr', oops)
       Noty().error(oops.message)
     })
   }

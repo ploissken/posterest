@@ -36,7 +36,7 @@ class MinimalMenu extends React.Component {
         { _id: '0', columns: [{ value: '', }, { value: 'posterest', }] },
         { _id: '1', columns: [{ value: '', }, { value: '---------', }] },
         { _id: '2', columns: [{ value: favCount, style: rightAligned }, { value: <Link to="/favorites"> Favoritos </Link>, }] },
-        { _id: '3', columns: [{ value: '', }, { value: <Link to="/instagram"> Instagram </Link>, }] },
+        // { _id: '3', columns: [{ value: '', }, { value: <Link to="/instagram"> Instagram </Link>, }] },
         { _id: '4', columns: [{ value: '', }, { value: <Link to="/minimal"> Notícias </Link>, }] },
         { _id: '5', columns: [{ value: '', }, { value: <Link to="/profile"> Perfil </Link>, }] },
         { _id: '6', columns: [{ value: '', }, { value: <Link to="/settings"> Configurações </Link>, }] },
@@ -44,7 +44,7 @@ class MinimalMenu extends React.Component {
       : [
         { _id: '0', columns: [{ value: '', }, { value: 'posterest', }] },
         { _id: '1', columns: [{ value: '', }, { value: '---------', }] },
-        { _id: '3', columns: [{ value: '', }, { value: <Link to="/instagram"> Instagram </Link>, }] },
+        // { _id: '3', columns: [{ value: '', }, { value: <Link to="/instagram"> Instagram </Link>, }] },
         { _id: '4', columns: [{ value: '', }, { value: <Link to="/minimal"> Notícias </Link>, }] },
         { _id: '7', columns: [{ value: '', }, { value: <Link to="/login"> Login </Link>, }] },
       ]

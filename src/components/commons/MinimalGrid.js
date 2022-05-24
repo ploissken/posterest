@@ -27,7 +27,7 @@ class MinimalGrid extends React.Component {
       const neo = this.props.dataset.news.raw.map(post => {
         const favButton = post.href === "DATE-MARKER"
           ? ( <Grid.Column width={1}></Grid.Column> )
-          : ( <Grid.Column width={1}><FavButton compact="true" postID={post._id} /></Grid.Column> )
+          : ( <Grid.Column width={1}><FavButton compact="true" postID={post._id || post.id} /></Grid.Column> )
 
         const title = post.href === "DATE-MARKER"
           ? ( <Grid.Column width={15} className="minimal news header"> {post.title} </Grid.Column> )
@@ -36,7 +36,7 @@ class MinimalGrid extends React.Component {
               </Grid.Column> )
 
         return (
-          <Grid.Row className="" key={post._id}>
+          <Grid.Row className="" key={post._id || post.id}>
             { favButton }
             { title }
           </Grid.Row>
