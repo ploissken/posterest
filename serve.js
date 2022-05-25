@@ -1,9 +1,10 @@
+console.log('HI FUCKER')
 const express = require('express')
 
 const app = express()
 app.use(express.static('build'))
 
-const port = process.env.PORT
+const port = process.env.PORT || 3000
 app.listen(port, () => console.log(`Post eletronic rest served @ ${port}`))
 
 app.get('*', function (req, res) {
