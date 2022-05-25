@@ -4,6 +4,6 @@ version: "3"
 
 services:
   posterest:
-    command: bash -c "npm install && node serve.js"
+    command: bash -c "npm install express && node serve.js"
     labels:
       - "traefik.frontend.rule=Host:posterest.txto.com.br"
