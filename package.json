@@ -5,6 +5,7 @@
   "homepage": "https://posterest.txto.com.br/",
   "dependencies": {
     "express": "^4.17.1",
+    "nodemon": "^2.0.16",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-notifications-component": "^1.1.1",
