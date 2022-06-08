@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const PROD_ENV = false // (process.env.NODE_ENV === 'production')
+const PROD_ENV = (process.env.NODE_ENV === 'production')
 const API_URL = PROD_ENV
   ? 'https://pa.txto.com.br'
   : 'http://localhost:9000'
