@@ -141,6 +141,7 @@ import api from '@/plugins/api'
           .replace('http://www.', '')
           .replace('http://', '')
           .replace('/brasil/', '')
+          .replace('/ultimas/', '')
           .replace('/', '')
       },
 
