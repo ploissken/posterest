@@ -66,11 +66,15 @@
       <v-col v-for="post in filteredNews(dailyNews.news)"
         :key="post.id"
         cols="12">
-        <p>
-          <a class="news-link" :href="post.href" target="_blank">
+        <p class="d-flex align-center">
+          <v-icon v-if="isLogged"
+            dark color="yellow" class="mr-2">
+            mdi-star-outline
+          </v-icon>
+          <a class="news-link mr-1" :href="post.href" target="_blank">
             {{ post.title }}
           </a>
-          | {{ clearSource(post.source) }}
+          {{ ` | ${clearSource(post.source)}` }}
           <v-chip x-small outlined black>
             {{ $dayjs(post.created_at).fromNow() }}
           </v-chip>
@@ -93,7 +97,7 @@
 import api from '@/plugins/api'
 
   export default {
-    name: 'HelloWorld',
+    name: 'NewsList',
 
     data: () => ({
       news: undefined,
@@ -118,11 +122,10 @@ import api from '@/plugins/api'
     methods: {
       loadMore () {
         this.loading = true
-        console.log('this.currentDate was', this.currentDate)
         this.currentDate = this.$dayjs(this.currentDate)
           .subtract(1, 'day')
           .format()
-        console.log('this.currentDate is', this.currentDate)
+
         api('/load-more-news').post({
           date: this.currentDate
         }).then(news => {
@@ -160,6 +163,10 @@ import api from '@/plugins/api'
     },
 
     computed: {
+      isLogged () {
+        return localStorage.getItem('user_id')
+      },
+
       sources () {
         let count = {}
         this.news
@@ -188,7 +195,7 @@ p {
 }
 .v-btn.filter-button {
   position: fixed;
-  top: 2em;
+  top: 4em;
   right: 2em;
 }
 .loader {

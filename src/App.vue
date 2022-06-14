@@ -4,25 +4,23 @@
       post e-rest
     </v-toolbar>
     <v-main>
-      <NewsList/>
+      <router-view/>
+      <GoogleSignin />
     </v-main>
   </v-app>
 </template>
 
 <script>
-import NewsList from '@/components/NewsList';
+import GoogleSignin from '@/components/GoogleSignin'
 
 export default {
   name: 'App',
 
   components: {
-    NewsList,
+    GoogleSignin
   },
 
-  data: () => ({
-    //
-  }),
-};
+}
 </script>
 
 <style>
