@@ -7,13 +7,13 @@ const app = express()
 
 app.use(express.static('dist'))
 
-// app.get('*', function (req, res) {
-//   console.log(path.join(__dirname, 'dist', 'index.html'))
-//   res.set({
-//     'Access-Control-Allow-Origin': '*'
-//   })
-//  res.sendFile(path.join(__dirname, 'dist', 'index.html'))
-// })
+app.get('*', function (req, res) {
+  console.log(path.join(__dirname, 'dist', 'index.html'))
+  res.set({
+    'Access-Control-Allow-Origin': '*'
+  })
+ res.sendFile(path.join(__dirname, 'dist', 'index.html'))
+})
 
 app.listen(
   port,
