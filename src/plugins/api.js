@@ -29,9 +29,11 @@ export class Api {
       url: this.url,
       baseURL: API_URL,
       withCredentials: true,
+      headers: {
+        'user-id': localStorage.getItem('user_id')
+      },
       ...axiosOptions
     }).then(response => {
-      console.log(response.data)
       return response.data || {}
     }).catch(error => {
       throw new Error(JSON.parse(error.response.data).message)

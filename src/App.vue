@@ -1,9 +1,9 @@
 <template>
-  <v-app dark>
+  <v-app dark class="fill-screen">
     <v-toolbar dense >
       post e-rest
     </v-toolbar>
-    <v-main>
+    <v-main class="mx-2">
       <router-view/>
       <GoogleSignin />
     </v-main>
@@ -25,4 +25,10 @@ export default {
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=PT+Serif&display=swap');
+
+.fill-screen {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
 </style>

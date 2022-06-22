@@ -10,7 +10,7 @@
     </v-row>
   </v-container>
 
-  <v-container fluid class="mt-12 mx-4" v-else>
+  <v-container fluid class="news-container" v-else>
     <!-- todo: make menu a self-contained component -->
     <v-menu transition="slide-x-transition"
       bottom right
@@ -51,6 +51,7 @@
     </v-menu>
     <!-- todo: make menu a self-contained component -->
 
+    <!-- todo: make this lazy loaded -->
     <v-row v-for="dailyNews in news"
       :key="dailyNews.date"
       class="d-flex align-start">
@@ -67,17 +68,23 @@
         :key="post.id"
         cols="12">
         <p class="d-flex align-center">
-          <v-icon v-if="isLogged"
-            dark color="yellow" class="mr-2">
-            mdi-star-outline
+          <v-icon v-if="loggedUserId"
+            @click="toggleFav(post.id)"
+            :ripple="false"
+            color="yellow" class="mr-2"
+            :class="{ 'toggling-fav': savingNews === post.id }">
+            {{
+              favorites.indexOf(`${post.id}`) >= 0
+                ? 'mdi-star'
+                : 'mdi-star-outline'
+            }}
           </v-icon>
-          <a class="news-link mr-1" :href="post.href" target="_blank">
+          <a class="news-link" :href="post.href" target="_blank">
             {{ post.title }}
+            <span style="color: white;">
+              {{ ` | ${clearSource(post.source)}` }}
+            </span>
           </a>
-          {{ ` | ${clearSource(post.source)}` }}
-          <v-chip x-small outlined black>
-            {{ $dayjs(post.created_at).fromNow() }}
-          </v-chip>
         </p>
       </v-col>
     </v-row>
@@ -103,19 +110,22 @@ import api from '@/plugins/api'
       news: undefined,
       currentDate: undefined,
       hideSources: [],
-      loading: false
+      loading: false,
+      favorites: [],
+      savingNews: undefined
     }),
 
     mounted () {
       api('/news').get()
-        .then(news => {
+        .then(response => {
           this.currentDate = this.$dayjs().format()
           this.news = [
             {
               date: this.currentDate,
-              news: news
+              news: response.news
             }
           ]
+          this.favorites = [ ...response.favorites ]
         }).catch(err => console.error(err))
     },
 
@@ -128,11 +138,15 @@ import api from '@/plugins/api'
 
         api('/load-more-news').post({
           date: this.currentDate
-        }).then(news => {
+        }).then(response => {
           this.news.push({
-            date: news[0].created_at,
-            news: news
+            date: response.news[0].created_at,
+            news: response.news
           })
+          this.favorites = [
+            ...this.favorites,
+            ...response.favorites
+          ]
           this.loading = false
         }).catch(err => console.error(err))
       },
@@ -146,6 +160,11 @@ import api from '@/plugins/api'
           .replace('/brasil/', '')
           .replace('/ultimas/', '')
           .replace('/', '')
+          .replace('diariodocentrodomundo', 'dcm')
+          .replace('piaui.folha.uol.com.br', 'piaui')
+          .replace('.com.br', '')
+          .replace('.com', '')
+          .replace('.org', '')
       },
 
       filterSource (clickedSource) {
@@ -159,11 +178,30 @@ import api from '@/plugins/api'
 
       filteredNews (newsArray) {
         return newsArray.filter(news => this.hideSources.indexOf(news.source) < 0)
-      }
+      },
+
+      toggleFav (newsId) {
+        this.savingNews = newsId
+        if (this.favorites.indexOf(newsId + '') >= 0) {
+          this.favorites = this.favorites
+            .filter(favorite => favorite !== `${newsId}`)
+        } else {
+          this.favorites.push(`${newsId}`)
+        }
+        this.$nextTick(() => {
+          api('/toggle-fav').post({
+            newsId: newsId,
+            userId: this.loggedUserId
+          }).finally(() => {
+            this.savingNews = undefined
+          })
+        })
+
+      },
     },
 
     computed: {
-      isLogged () {
+      loggedUserId () {
         return localStorage.getItem('user_id')
       },
 
@@ -189,6 +227,25 @@ import api from '@/plugins/api'
 </script>
 
 <style lang="scss">
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+.toggling-fav {
+  animation: rotation 1.5s infinite linear;
+}
+
+.news-container {
+  width: 100%;
+  height: 80vh;
+  overflow-y: auto;
+}
+
 p {
   font-family: 'PT Serif', serif;
   font-size: 0.9em;
