@@ -1,6 +1,6 @@
 <template>
   <v-app dark class="fill-screen">
-    <v-toolbar dense >
+    <v-toolbar dense max-height="48px">
       post e-rest
     </v-toolbar>
     <v-main class="mx-2">
