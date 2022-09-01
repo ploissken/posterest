@@ -29,6 +29,8 @@ export default {
 .fill-screen {
   width: 100vw;
   height: 100vh;
-  overflow: hidden;
+  /* overflow: hidden; */
+  overflow-y: auto;
+
 }
 </style>

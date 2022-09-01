@@ -10,7 +10,10 @@
     </v-row>
   </v-container>
 
-  <v-container fluid class="news-container" v-else>
+  <v-container fluid class="news-container" v-else
+    @scroll="scrollListener"
+    ref="newsContainer">
+    <vue-topprogress ref="topProgress" color="#FF4444"/>
     <!-- todo: make menu a self-contained component -->
     <v-menu transition="slide-x-transition"
       bottom right
@@ -155,10 +158,11 @@
 
 <script>
 import api from '@/plugins/api'
+import { vueTopprogress } from 'vue-top-progress'
 
   export default {
     name: 'YourBriefing',
-
+    components: { vueTopprogress },
     data: () => ({
       news: undefined,
       mainTopics: undefined,
@@ -166,11 +170,17 @@ import api from '@/plugins/api'
       ungroupedNews: undefined,
       currentDate: undefined,
       hideSources: [],
+      scrollPercent: 1,
       loading: false,
       favorites: [],
       groupingThreshold: 0.46,
       savingNews: undefined
     }),
+
+    created () {
+      window.addEventListener('scroll', this.scrollListener)
+
+    },
 
     mounted () {
       api('/news').get()
@@ -200,10 +210,22 @@ import api from '@/plugins/api'
           this.mainTopics = l2merge.map(n => n.unique)
           this.groupThruTopics()
 
+          setTimeout(() => {
+            this.$refs.topProgress.start()
+            this.$refs.topProgress.pause()
+          }, 1000)
+
         }).catch(err => console.error(err))
     },
 
     methods: {
+      scrollListener () {
+        let percent = ((this.$refs.newsContainer?.scrollTop || 0) * 100) /
+          (this.$refs.newsContainer?.scrollHeight || 1)
+        if (percent >= 98.1) percent = 100
+        this.$refs.topProgress.set(percent)
+      },
+
       groupKeywords (pool) {
         let words = {}
         pool.forEach(news => {
@@ -441,8 +463,8 @@ import api from '@/plugins/api'
 
 .news-container {
   width: 100%;
-  height: 80vh;
-  overflow-y: auto;
+  // height: 80vh;
+  // overflow-y: auto;
 }
 
 p {

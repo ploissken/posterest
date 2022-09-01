@@ -118,7 +118,9 @@ import api from '@/plugins/api'
     mounted () {
       api('/news').get()
         .then(response => {
-          this.currentDate = this.$dayjs().format()
+          this.currentDate = this.$dayjs()
+            .subtract(1, 'day')
+            .format()
           this.news = [
             {
               date: this.currentDate,
