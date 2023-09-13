@@ -11,6 +11,7 @@
 	</v-container>
 
 	<v-container fluid class="news-container" v-else>
+		<vue-topprogress ref="topProgress" color="#F44" />
 		<!-- todo: make menu a self-contained component -->
 		<v-menu
 			transition="slide-x-transition"
@@ -109,9 +110,14 @@
 
 <script>
 import api from "@/plugins/api";
+import { vueTopprogress } from "vue-top-progress";
 
 export default {
 	name: "NewsList",
+
+	components: {
+		vueTopprogress,
+	},
 
 	data: () => ({
 		news: undefined,
@@ -123,10 +129,19 @@ export default {
 	}),
 
 	mounted() {
+		window.addEventListener(
+			"scroll",
+			evt => {
+				const scrollPercentage =
+					(evt.target.scrollTop * 100) / (evt.target.scrollHeight - 560);
+				this.$refs.topProgress?.set(scrollPercentage);
+			},
+			true
+		);
 		api("/news")
 			.get()
 			.then(response => {
-				this.currentDate = this.$dayjs().subtract(1, "day").format();
+				this.currentDate = this.$dayjs().format();
 				this.news = [
 					{
 						date: this.currentDate,
@@ -135,7 +150,13 @@ export default {
 				];
 				this.favorites = [...response.favorites];
 			})
-			.catch(err => console.error(err));
+			.catch(err => console.error(err))
+			.finally(() => {
+				this.$refs.topProgress?.start();
+				this.$nextTick(() => {
+					this.$refs.topProgress?.pause();
+				});
+			});
 	},
 
 	methods: {
@@ -256,7 +277,8 @@ export default {
 
 .news-container {
 	width: 100%;
-	height: 80vh;
+	height: calc(100vh - 60px);
+	padding-bottom: 120px;
 	overflow-y: auto;
 }
 
